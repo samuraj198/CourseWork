@@ -9,7 +9,7 @@
     <title>@yield('title')</title>
 </head>
 <body class="flex flex-col items-center">
-    <header class="mt-[50px] flex justify-between items-center w-[95%]">
+    <header class="mb-20 mt-[50px] flex justify-between items-center w-[95%]">
         <a href="{{ route('index') }}">
             <div class="logo-and-name flex items-center gap-2">
                 <div class="img">
@@ -29,25 +29,25 @@
         </a>
         <nav>
             <ul class="flex gap-5 text-xl">
-                <li class="relative after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-2px] after:h-[2px] after:bg-black"><a href="">Главная</a></li>
-                <li><a href="">Каталог</a></li>
-                <li><a href="">О Сервисе</a></li>
+                <li><a href="{{ route('index') }}">Главная</a></li>
+                <li><a href="{{ route('catalog') }}">Каталог</a></li>
+                <li><a href="{{ route('aboutUs') }}">О Сервисе</a></li>
             </ul>
         </nav>
         <div class="buttons flex gap-[15px]">
-            <x-button text="Войти" />
-            <x-button text="Зарегистрироваться" />
+            <a href="{{ route('auth') }}"><x-button text="Войти" /></a>
+            <a href="{{ route('register') }}"><x-button text="Зарегистрироваться" /></a>
         </div>
     </header>
-    <main>
+    <main class="w-[95%] flex flex-col items-center">
         @yield('content')
     </main>
-    <footer class="pt-20 w-[95%] border-t-[1px] border-solid border-black mt-14 flex flex-col items-center justify-center fixed bottom-0 pb-[25px]">
+    <footer class="pt-20 w-[95%] border-t-[1px] border-solid border-black mt-14 flex flex-col items-center justify-center pb-[25px]">
         <nav>
             <ul class="flex gap-5 text-xl">
-                <li class="relative after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-2px] after:h-[2px] after:bg-black"><a href="">Главная</a></li>
-                <li><a href="">Каталог</a></li>
-                <li><a href="">О Сервисе</a></li>
+                <li><a href="{{ route('index') }}">Главная</a></li>
+                <li><a href="{{ route('catalog') }}">Каталог</a></li>
+                <li><a href="{{ route('aboutUs') }}">О Сервисе</a></li>
             </ul>
         </nav>
         <div class="footer-logo-and-name flex flex-col items-center justify-center mt-20">
