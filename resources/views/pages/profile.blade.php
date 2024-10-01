@@ -1,5 +1,6 @@
 @extends('main/main')
 @section('title', 'Profile')
 @section('content')
-    <h2>Profile</h2>
+    <img src="/storage/avatars/{{$user->ava}}" alt="">
+    <h2>{{ $user->login }}</h2>
 @endsection

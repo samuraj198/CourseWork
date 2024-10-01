@@ -35,8 +35,17 @@
             </ul>
         </nav>
         <div class="buttons flex gap-[15px]">
-            <a href="{{ route('auth') }}"><x-button text="Войти" /></a>
-            <a href="{{ route('register') }}"><x-button text="Зарегистрироваться" /></a>
+            @if(\Illuminate\Support\Facades\Auth::user())
+                <a href="{{ route('profile') }}"><x-button text="Профиль" /></a>
+                <form method="POST" action="{{ route('auth') }}">
+                    @csrf
+                    @method('DELETE')
+                    <a type="submit"><x-button text="Выйти" /></a>
+                </form>
+            @else
+                <a href="{{ route('auth') }}"><x-button text="Войти" /></a>
+                <a href="{{ route('register') }}"><x-button text="Зарегистрироваться" /></a>
+            @endif
         </div>
     </header>
     <main class="w-[95%] flex flex-col items-center">
