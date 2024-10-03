@@ -19,10 +19,19 @@ class User extends Authenticatable
     protected $fillable = [
         'ava',
         'login',
+        'role',
         'email',
         'password',
     ];
 
+    public function store(){
+        return $this->hasMany(File::class, 'user_id');
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role == $role;
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

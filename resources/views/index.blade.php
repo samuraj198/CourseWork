@@ -1,6 +1,16 @@
 @extends('main/main')
 @section('title', 'Home Page')
 @section('content')
+    <style>
+        @forelse($categories as $category)
+            #card-{{$category->id}} {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)) ,url("storage/categories/{{$category->img}}");
+            background-size: cover;
+        }
+        @empty
+
+        @endforelse
+    </style>
     <div class="search-block w-3/4 mb-16">
         <form class="relative w-full" action="">
             <input type="text" class="w-full border-[1px] border-solid border-black rounded-lg py-[13px] pl-[15px]" placeholder="Введите название 3d-модели">
@@ -9,8 +19,14 @@
     </div>
     <div class="categories-block flex flex-col items-center mb-16">
         <h2 class="text-2xl font-bold mb-5">ПОПУЛЯРНЫЕ КАТЕГОРИИ</h2>
-        <div class="blocks w-[1600px] bg-black h-[200px]">
-
+        <div class="blocks w-[1600px] h-[200px] flex gap-5">
+            @forelse($categories as $category)
+                <div id="card-{{$category->id}}" class="block rounded-lg border-black border-solid border-[1px] w-[250px] h-[200px] font-bold text-white text-2xl flex items-center justify-center">
+                    {{ $category->name }}
+                </div>
+            @empty
+                <p>Нет категорий</p>
+            @endforelse
         </div>
     </div>
     <div class="categories-block flex flex-col items-center">
@@ -18,6 +34,6 @@
         <div class="blocks w-[1600px] bg-black h-[375px] mb-10">
 
         </div>
-        <x-button text="Перейти в каталог" />
+        <a href="{{ route('catalog') }}"><x-button text="Перейти в каталог" /></a>
     </div>
 @endsection

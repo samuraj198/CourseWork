@@ -4,12 +4,14 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 use \App\Http\Controllers\Auth\AuthenticateUserController;
+use \App\Http\Controllers\CategoriesController;
+use \App\Http\Controllers\IndexController;
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+
+Route::post('createCategory', [CategoriesController::class, 'store'])->name('createCategory');
 
 Route::get('aboutUs', function () {
     return view('pages/aboutUs');

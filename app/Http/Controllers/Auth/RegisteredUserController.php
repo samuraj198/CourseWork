@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $ava = $request->file('ava');
-        $photoName = $request->input('login') . '_' . now()->format('YmdHis') . '.' . $ava->getClientOriginalExtension();;
+        $photoName = $request->input('login') . '_' . now()->format('YmdHis') . '.' . $ava->getClientOriginalExtension();
 
         $ava->storeAs('avatars', $photoName, 'public');
 
