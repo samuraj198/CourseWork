@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FilesController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 use \App\Http\Controllers\Auth\AuthenticateUserController;
@@ -12,6 +13,8 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
 
 Route::post('createCategory', [CategoriesController::class, 'store'])->name('createCategory');
+Route::post('createWork', [FilesController::class, 'store'])->name('createWork');
+Route::get('downloadFile/{id}', [FilesController::class, 'downloadFile'])->name('downloadFile');
 
 Route::get('aboutUs', function () {
     return view('pages/aboutUs');

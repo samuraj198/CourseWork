@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\File;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,8 +15,10 @@ class ProfileController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $categories = Category::all();
+        $works = File::where('user_id', $user->id)->get();
 
-        return view('pages.profile', compact('user'));
+        return view('pages.profile', compact('user', 'categories', 'works'));
     }
 
     /**
