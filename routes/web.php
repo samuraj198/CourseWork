@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 use \App\Http\Controllers\Auth\AuthenticateUserController;
@@ -11,6 +12,7 @@ use \App\Http\Controllers\IndexController;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('user/{login}', [UserController::class, 'show'])->name('user.show');
 
 Route::post('createCategory', [CategoriesController::class, 'store'])->name('createCategory');
 Route::post('createWork', [FilesController::class, 'store'])->name('createWork');

@@ -1,4 +1,4 @@
-<div id="modalWork" class="modal hidden w-full h-full bg-black/80 fixed left-0 top-0 flex justify-center items-start">
+<div id="modalWork" class="modal z-50 hidden w-full h-full bg-black/80 fixed left-0 top-0 flex justify-center items-start">
     <form method="POST" action="{{ route('createWork') }}" class="rounded-lg relative flex flex-col items-center gap-5 bg-white p-10 w-1/3 mt-20" enctype="multipart/form-data">
         @csrf
         <a onclick="closeWorkModal()" class="absolute right-5 top-2 text-4xl cursor-pointer">&times;</a>
