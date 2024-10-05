@@ -32,27 +32,28 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'ava' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+        $userData = $request->validate([
+            'ava' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'login' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $ava = $request->file('ava');
-        $photoName = $request->input('login') . '_' . now()->format('YmdHis') . '.' . $ava->getClientOriginalExtension();
+        if ($request->hasFile('ava')) {
+            $ava = $request->file('ava');
+            $photoName = $request->input('login') . '_' . now()->format('YmdHis') . '.' . $ava->getClientOriginalExtension();
 
-        $ava->storeAs('avatars', $photoName, 'public');
+            $ava->storeAs('avatars', $photoName, 'public');
+            $userData['ava'] = $photoName;
+        } else {
+            $userData['ava'] = null;
+        }
 
-        $user = User::create([
-            'ava' => $photoName,
-            'login' => $request['login'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
+        $user = User::create($userData);
+
         event(new Registered($user));
         Auth::login($user);
-        return redirect()->route('index')->with('success', 'Аккаунт успешно зарегистрирован. Вход выполнен');
+        return redirect()->route('profile', auth()->user()->login)->with('success', 'Аккаунт успешно зарегистрирован. Вход выполнен');
     }
 
     /**

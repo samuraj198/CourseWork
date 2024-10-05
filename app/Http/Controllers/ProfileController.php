@@ -12,13 +12,13 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($login)
     {
-        $user = auth()->user();
+        $user = User::where('login', $login)->firstOrFail();
         $categories = Category::all();
         $works = File::where('user_id', $user->id)->get();
 
-        return view('pages.profile', compact('user', 'categories', 'works'));
+        return view('pages/profile', compact('user', 'categories', 'works'));
     }
 
     /**

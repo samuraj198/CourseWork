@@ -35,6 +35,7 @@
         <a type="submit" class="mt-5"><x-button text="Опубликовать" /></a>
     </form>
 </div>
+
 <script>
     function previewFile(event){
         const readerFile = new FileReader();

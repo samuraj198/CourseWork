@@ -11,9 +11,6 @@ use \App\Http\Controllers\IndexController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-Route::get('profile', [ProfileController::class, 'index'])->name('profile');
-Route::get('user/{login}', [UserController::class, 'show'])->name('user.show');
-
 Route::post('createCategory', [CategoriesController::class, 'store'])->name('createCategory');
 Route::post('createWork', [FilesController::class, 'store'])->name('createWork');
 Route::get('downloadFile/{id}', [FilesController::class, 'downloadFile'])->name('downloadFile');
@@ -36,3 +33,5 @@ Route::post('register', [RegisteredUserController::class, 'store']);
 Route::get('catalog', function () {
     return view('pages/catalog');
 })->name('catalog');
+
+Route::get('/{login}', [ProfileController::class, 'index'])->name('profile');

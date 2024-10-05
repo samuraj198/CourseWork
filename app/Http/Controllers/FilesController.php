@@ -60,7 +60,7 @@ class FilesController extends Controller
 
         $file = $request->file('file');
         $fileOrigName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $fileName = 'file_' . $fileOrigName . $user->login . '_' . now()->format('YmdHis') . '.' . $file->getClientOriginalExtension();
+        $fileName = 'file_' . $fileOrigName . '_' . $user->login . '_' . now()->format('YmdHis') . '.' . $file->getClientOriginalExtension();
         $file->storeAs('files', $fileName, 'public');
 
         $work = File::create([

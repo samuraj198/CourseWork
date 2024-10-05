@@ -1,12 +1,17 @@
 <div class="user-info mb-[50px] flex flex-col gap-2 items-center">
-    <img class="w-[120px] h-[120px] rounded-full object-cover" src="/storage/avatars/{{$user->ava}}" alt="">
+    @if(empty($user->ava))
+        <img class="w-[120px] h-[120px] rounded-full object-cover" src="/img/icons/profile.svg" alt="">
+    @else
+        <img class="w-[120px] h-[120px] rounded-full object-cover" src="/storage/avatars/{{$user->ava}}" alt="">
+    @endif
+
     <h2 class="text-2xl">{{ $user->login }}
         <span class="text-black/50 text-sm">
-            @if($user->id == auth()->user()->id)
+            @if(auth()->check() && $user->id == auth()->user()->id)
                 (Вы)
             @endif
         </span></h2>
-    @if($user->id == auth()->user()->id)
+    @if(auth()->check() && $user->id == auth()->user()->id)
         <a onclick="openWorkModal()"><x-button text="Загрузить работу" /></a>
     @endif
     @if($errors->any())
@@ -15,9 +20,9 @@
             @endforeach
     @endif
 </div>
-<div class="buttons-and-cards">
+<div class="buttons-and-cards flex flex-col items-center">
     <div class="buttons flex gap-5 text-2xl mb-[50px]">
-        @if($user->id == auth()->user()->id)
+        @if(auth()->check() && $user->id == auth()->user()->id)
             <button id="myWorksBtn" class="w-[230px] text-right underline">
                 Мои работы
             </button>
@@ -35,8 +40,10 @@
         <div id="my-works" class="flex gap-[30px]">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg">
-                    {{$work->name}}
-                    <a class="underline" href="{{ route('user.show', $work->user->login) }}">{{ $work->user->login }}</a>
+                    <img class="h-1/2 w-full rounded-t-md" src="storage/files_previews/{{$work->img}}" alt="">
+                    <p class="text-center">{{$work->name}}</p>
+                    <p class="text-center">{{$work->information}}</p>
+                    <p class="text-center">{{$work->category->name}}</p>
                     <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300" href="{{ route('downloadFile', $work->id) }}">Скачать</a>
                 </div>
             @empty

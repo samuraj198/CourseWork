@@ -33,9 +33,12 @@
         <h2 class="text-2xl font-bold mb-5">ПОСЛЕДНИЕ ДОБАВЛЕННЫЕ МОДЕЛИ</h2>
         <div class="blocks flex gap-[30px] max-w-[1600px] mb-10">
             @forelse($works as $work)
-                <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg">
-                    {{$work->name}}
-                    <a class="underline" href="{{ route('user.show', $work->user->login) }}">{{ $work->user->login }}</a>
+                <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg flex flex-col items-center">
+                    <img class="h-1/2 w-full rounded-t-md" src="storage/files_previews/{{$work->img}}" alt="">
+                    <p class="text-center">{{$work->name}}</p>
+                    <p class="text-center">{{$work->information}}</p>
+                    <p class="text-center">{{$work->category->name}}</p>
+                    <a class="underline" href="{{ route('profile', $work->user->login) }}">{{ $work->user->login }}</a>
                     <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300" href="{{ route('downloadFile', $work->id) }}">Скачать</a>
                 </div>
             @empty

@@ -36,7 +36,7 @@
         </nav>
         <div class="buttons flex gap-[15px]">
             @if(\Illuminate\Support\Facades\Auth::user())
-                <a href="{{ route('profile') }}"><x-button text="Профиль" /></a>
+                <a href="{{ route('profile', auth()->user()->login) }}"><x-button text="Профиль" /></a>
                 <form method="POST" action="{{ route('auth') }}">
                     @csrf
                     @method('DELETE')

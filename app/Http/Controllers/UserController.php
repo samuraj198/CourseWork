@@ -39,7 +39,7 @@ class UserController extends Controller
     public function show($login)
     {
         $user = User::where('login', $login)->firstOrFail();
-        if($user->id == auth()->user()->id) {
+        if(auth()->check() &&  $user->id == auth()->user()->id) {
             return redirect()->route('profile');
         }
         $categories = Category::all();

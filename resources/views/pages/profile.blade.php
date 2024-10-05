@@ -1,12 +1,18 @@
 @extends('main/main')
-@include('modals/createWork')
 @section('title', 'Profile')
 @section('content')
-    @if(auth()->user()->hasRole('User'))
+    @if(auth()->check())
+        @if(auth()->user()->hasRole('User'))
+            @include('roles/user')
+            @include('modals/createWork')
+        @elseif(auth()->user()->hasRole('Admin'))
+            @include('roles/admin')
+            @include('modals/createWork')
+        @endif
+    @else
         @include('roles/user')
-    @elseif(auth()->user()->hasRole('Admin'))
-        @include('roles/admin')
     @endif
+
     <script>
         const myWorksBtn = document.getElementById('myWorksBtn');
         const downloadHistoryBtn = document.getElementById('myHistoryBtn');
