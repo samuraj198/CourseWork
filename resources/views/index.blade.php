@@ -12,9 +12,10 @@
         @endforelse
     </style>
     <div class="search-block w-3/4 mb-16">
-        <form class="relative w-full" action="">
-            <input type="text" class="w-full border-[1px] border-solid border-black rounded-lg py-[13px] pl-[15px]" placeholder="Введите название 3d-модели">
-            <input type="button" value="Поиск" class="h-full absolute right-0 text-white bg-black rounded-r-lg px-5 cursor-pointer">
+        <form class="relative w-full" action="{{ route('catalog') }}">
+            @csrf
+            <input name="filename" type="text" class="w-full border-[1px] border-solid border-black rounded-lg py-[13px] pl-[15px]" placeholder="Введите название 3d-модели">
+            <input type="submit" value="Поиск" class="h-full absolute right-0 text-white bg-black rounded-r-lg px-5 cursor-pointer">
         </form>
     </div>
     <div class="categories-block flex flex-col items-center mb-16">
@@ -34,7 +35,7 @@
         <div class="blocks flex gap-[30px] max-w-[1600px] mb-10">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg flex flex-col items-center">
-                    <img class="h-1/2 w-full rounded-t-md" src="storage/files_previews/{{$work->img}}" alt="">
+                    <img class="h-1/2 w-full rounded-t-md object-cover" src="storage/files_previews/{{$work->img}}" alt="">
                     <p class="text-center">{{$work->name}}</p>
                     <p class="text-center">{{$work->information}}</p>
                     <p class="text-center">{{$work->category->name}}</p>

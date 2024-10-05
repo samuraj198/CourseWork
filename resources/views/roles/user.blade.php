@@ -20,7 +20,7 @@
             @endforeach
     @endif
 </div>
-<div class="buttons-and-cards flex flex-col items-center">
+<div class="buttons-and-cards flex flex-col items-center w-full">
     <div class="buttons flex gap-5 text-2xl mb-[50px]">
         @if(auth()->check() && $user->id == auth()->user()->id)
             <button id="myWorksBtn" class="w-[230px] text-right underline">
@@ -36,11 +36,11 @@
             История скачиваний
         </button>
     </div>
-    <div class="cards flex flex-col items-center">
-        <div id="my-works" class="flex gap-[30px]">
+    <div class="cards flex flex-col items-center w-full">
+        <div id="my-works" class="flex gap-[30px] flex-wrap w-full justify-center">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg">
-                    <img class="h-1/2 w-full rounded-t-md" src="storage/files_previews/{{$work->img}}" alt="">
+                    <img class="h-1/2 w-full rounded-t-md object-cover" src="storage/files_previews/{{$work->img}}" alt="">
                     <p class="text-center">{{$work->name}}</p>
                     <p class="text-center">{{$work->information}}</p>
                     <p class="text-center">{{$work->category->name}}</p>

@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FilesController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 use \App\Http\Controllers\Auth\AuthenticateUserController;
 use \App\Http\Controllers\CategoriesController;
 use \App\Http\Controllers\IndexController;
+use \App\Http\Controllers\CatalogController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -30,8 +30,6 @@ Route::get('register', function () {
 })->name('register');
 Route::post('register', [RegisteredUserController::class, 'store']);
 
-Route::get('catalog', function () {
-    return view('pages/catalog');
-})->name('catalog');
+Route::get('catalog', [CatalogController::class, 'index'])->name('catalog');
 
 Route::get('/{login}', [ProfileController::class, 'index'])->name('profile');
