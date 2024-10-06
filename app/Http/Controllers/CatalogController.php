@@ -20,14 +20,13 @@ class CatalogController extends Controller
         if (!empty($filename)) {
             $files = File::where('name', 'like', "%{$filename}%")->get();
         } else {
-            $files = collect();  // Если нет поиска, возвращаем пустую коллекцию
+            $files = File::all();
         }
 
         // Все категории и работы для общего каталога
         $categories = Category::all();
-        $works = File::all();
 
-        return view('pages/catalog', compact('categories', 'works', 'files'));
+        return view('pages/catalog', compact('categories', 'files', 'filename'));
     }
 
 
