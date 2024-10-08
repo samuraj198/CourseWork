@@ -88,7 +88,6 @@
     const themeToggle = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
 
-
     if (localStorage.getItem('theme') === 'dark') {
         htmlElement.classList.add('dark');
     }

@@ -1,6 +1,12 @@
 <div class="user-info mb-[50px] flex flex-col gap-2 items-center dark:text-white">
     @if(empty($user->ava))
-        <img id="userAva" class="w-[120px] h-[120px] rounded-full object-cover border-black border-solid border-[1px]" src="/img/icons/profile.svg" alt="">
+        <div class="logo">
+            <svg width="120" height="120" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect class="fill-white stroke-black dark:fill-black dark:stroke-white" x="0.5" y="0.5" width="59" height="59" rx="29.5"/>
+                <path class="dark:fill-white" fill-rule="evenodd" clip-rule="evenodd" d="M54.7219 47C49.3118 54.8526 40.2571 60 30.0001 60C19.7432 60 10.6885 54.8526 5.27832 47C10.6885 39.1474 19.7432 34 30.0001 34C40.2571 34 49.3118 39.1474 54.7219 47Z" fill="black"/>
+                <rect class="fill-black dark:fill-white" x="20" y="12" width="20" height="20" rx="10" fill="black"/>
+            </svg>
+        </div>
     @else
         <img class="w-[120px] h-[120px] rounded-full object-cover" src="/storage/avatars/{{$user->ava}}" alt="">
     @endif
@@ -58,26 +64,15 @@
     </div>
 </div>
 <script>
-    if (localStorage.getItem('theme') === 'dark') {
-        htmlElement.classList.add('dark');
-        if (typeof document.getElementById('userAva') !== 'undefined') {
-            document.getElementById('userAva').src = '/img/icons/profile(Dark).svg';
-        }
-    }
-
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
     themeToggle.addEventListener('click', () => {
         if (htmlElement.classList.contains('dark')) {
             htmlElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
-            if (typeof document.getElementById('userAva') !== 'undefined') {
-                document.getElementById('userAva').src = '/img/icons/profile(Dark).svg';
-            }
         } else {
             htmlElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
-            if (typeof document.getElementById('userAva') !== 'undefined') {
-                document.getElementById('userAva').src = '/img/icons/profile(Dark).svg';
-            }
         }
     });
 </script>
