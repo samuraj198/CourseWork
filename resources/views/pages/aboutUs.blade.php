@@ -1,7 +1,7 @@
 @extends('main/main')
 @section('title', 'About Us')
 @section('content')
-    <h2 class="text-2xl font-bold mb-5">О СЕРВИСЕ</h2>
+    <h2 class="text-2xl font-bold mb-5 dark:text-white">О СЕРВИСЕ</h2>
     <div class="text-and-logo flex items-center justify-center gap-10">
         <div class="logo">
             <svg width="300" height="177" viewBox="0 0 100 63" fill="none" xmlns="http://www.w3.org/2000/svg">

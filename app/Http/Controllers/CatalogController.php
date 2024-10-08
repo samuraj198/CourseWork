@@ -15,18 +15,48 @@ class CatalogController extends Controller
     {
         // Проверка, есть ли параметр filename в запросе
         $filename = $request->input('filename', '');
+        $categ = $request->input('categ', '');
 
-        // Если передан параметр filename, то ищем файлы по нему
-        if (!empty($filename)) {
-            $files = File::where('name', 'like', "%{$filename}%")->get();
+        $files = File::when(!empty($filename) || !empty($categ), function ($query) use ($filename, $categ) {
+            if (!empty($filename)) {
+                $query->where('name', 'like', "%{$filename}%");
+            }
+            if (!empty($categ)) {
+                $query->where('category_id', $categ);
+            }
+        })->get();
+
+        if (!empty($categ)) {
+            $categ_name = Category::where('id', $categ)->value('name');
         } else {
-            $files = File::all();
+            $categ_name = '';
         }
-
         // Все категории и работы для общего каталога
         $categories = Category::all();
 
-        return view('pages/catalog', compact('categories', 'files', 'filename'));
+        return view('pages/catalog', compact('categories', 'files', 'filename', 'categ', 'categ_name'));
+    }
+
+    public function searchClear(Request $request)
+    {
+        $filename = $request->input('filename', '');
+        $categ = $request->input('categ', '');
+
+        if ($request->has('clear_categ')) {
+            $categ = '';
+        }
+        if ($request->has('clear_filename')) {
+            $filename = '';
+        }
+        if ($request->has('clear_all')) {
+            $filename = '';
+            $categ = '';
+        }
+
+        return redirect()->route('catalog', [
+            'categ' => $categ,
+            'filename' => $filename,
+        ]);
     }
 
 

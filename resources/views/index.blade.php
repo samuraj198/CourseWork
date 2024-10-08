@@ -14,7 +14,7 @@
     <div class="search-block w-3/4 mb-16">
         <form class="relative w-full" action="{{ route('catalog') }}">
             @csrf
-            <input name="filename" type="text" class="w-full border-[1px] border-solid border-black rounded-lg py-[13px] pl-[15px] pr-[100px] dark:border-white dark:bg-black" placeholder="Введите название 3d-модели">
+            <input name="filename" type="text" class="w-full border-[1px] border-solid border-black rounded-lg py-[13px] pl-[15px] pr-[100px] dark:border-white dark:bg-black dark:text-white" placeholder="Введите название 3d-модели">
             <input type="submit" value="Поиск" class="h-full absolute right-0 text-white bg-black rounded-r-lg px-5 cursor-pointer border-solid border-[1px] border-black dark:border-white">
         </form>
     </div>

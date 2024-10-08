@@ -84,7 +84,6 @@
 </body>
 </html>
 <script>
-    @yield('js')
     const themeToggle = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
 
@@ -101,4 +100,5 @@
             localStorage.setItem('theme', 'dark');
         }
     });
+    @yield('js')
 </script>

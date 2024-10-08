@@ -61,16 +61,3 @@
         </div>
     </div>
 </div>
-<script>
-    const themeToggle = document.getElementById('themeToggle');
-    const htmlElement = document.documentElement;
-    themeToggle.addEventListener('click', () => {
-        if (htmlElement.classList.contains('dark')) {
-            htmlElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            htmlElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    });
-</script>
