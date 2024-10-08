@@ -1,12 +1,12 @@
 <div class="user-info mb-[50px] flex flex-col gap-2 items-center dark:text-white">
     @if(empty($user->ava))
-        <img class="w-[120px] h-[120px] rounded-full object-cover border-black border-solid border-[1px] dark:border-white" src="/img/icons/profile.svg" alt="">
+        <img id="userAva" class="w-[120px] h-[120px] rounded-full object-cover border-black border-solid border-[1px]" src="/img/icons/profile.svg" alt="">
     @else
         <img class="w-[120px] h-[120px] rounded-full object-cover" src="/storage/avatars/{{$user->ava}}" alt="">
     @endif
 
     <h2 class="text-2xl">{{ $user->login }}
-        <span class="text-black/50 text-sm dark:text-white">
+        <span class="text-black/50 text-sm dark:text-white/50">
             @if(auth()->check() && $user->id == auth()->user()->id)
                 (Вы)
             @endif
@@ -40,20 +40,44 @@
         <div id="my-works" class="flex gap-[30px] flex-wrap w-full justify-center">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                    <img class="h-1/2 w-full rounded-t-md object-cover" src="storage/files_previews/{{$work->img}}" alt="">
+                    <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="storage/files_previews/{{$work->img}}" alt="">
                     <p class="text-center dark:text-white">{{$work->name}}</p>
                     <p class="text-center dark:text-white">{{$work->information}}</p>
                     <p class="text-center dark:text-white">{{$work->category->name}}</p>
                     <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black" href="{{ route('downloadFile', $work->id) }}">Скачать</a>
                 </div>
             @empty
-                <p>Пока нет загруженных работ</p>
+                <p class="dark:text-white">Пока нет загруженных работ</p>
             @endforelse
         </div>
         <div id="my-history" class="hidden">
-            <div class="card w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg">
+            <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white dark:text-white">
                 История скачиваний
             </div>
         </div>
     </div>
 </div>
+<script>
+    if (localStorage.getItem('theme') === 'dark') {
+        htmlElement.classList.add('dark');
+        if (typeof document.getElementById('userAva') !== 'undefined') {
+            document.getElementById('userAva').src = '/img/icons/profile(Dark).svg';
+        }
+    }
+
+    themeToggle.addEventListener('click', () => {
+        if (htmlElement.classList.contains('dark')) {
+            htmlElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            if (typeof document.getElementById('userAva') !== 'undefined') {
+                document.getElementById('userAva').src = '/img/icons/profile(Dark).svg';
+            }
+        } else {
+            htmlElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            if (typeof document.getElementById('userAva') !== 'undefined') {
+                document.getElementById('userAva').src = '/img/icons/profile(Dark).svg';
+            }
+        }
+    });
+</script>

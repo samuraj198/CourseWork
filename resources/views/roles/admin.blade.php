@@ -1,5 +1,9 @@
 <div class="user-info mb-[50px] flex flex-col gap-2 items-center">
-    <img class="w-[120px] h-[120px] rounded-full object-cover" src="/storage/avatars/{{$user->ava}}" alt="">
+    @if (empty($user->ava))
+        <img id="adminAva" class="w-[120px] h-[120px] rounded-full object-cover border-black border-solid border-[1px]" src="/img/icons/profile.svg" alt="">
+    @else
+        <img class="w-[120px] h-[120px] rounded-full object-cover" src="/storage/avatars/{{$user->ava}}" alt="">
+    @endif
     <h2 class="text-2xl">{{ $user->login }}
         <span class="text-black/50 text-sm">
             @if(auth()->check() && $user->id == auth()->user()->id)
@@ -34,7 +38,7 @@
         <div id="my-works" class="flex gap-[30px] flex-wrap w-full justify-center">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                    <img class="h-1/2 w-full rounded-t-md object-cover" src="storage/files_previews/{{$work->img}}" alt="">
+                    <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="storage/files_previews/{{$work->img}}" alt="">
                     <p class="text-center dark:text-white">{{$work->name}}</p>
                     <p class="text-center dark:text-white">{{$work->information}}</p>
                     <p class="text-center dark:text-white">{{$work->category->name}}</p>
@@ -51,3 +55,27 @@
         </div>
     </div>
 </div>
+<script>
+    if (localStorage.getItem('theme') === 'dark') {
+        htmlElement.classList.add('dark');
+        if (typeof document.getElementById('adminAva') !== 'undefined') {
+            document.getElementById('adminAva').src = '/img/icons/profile(Dark).svg';
+        }
+    }
+
+    themeToggle.addEventListener('click', () => {
+        if (htmlElement.classList.contains('dark')) {
+            htmlElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            if (typeof document.getElementById('adminAva') !== 'undefined') {
+                document.getElementById('adminAva').src = '/img/icons/profile(Dark).svg';
+            }
+        } else {
+            htmlElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            if (typeof document.getElementById('adminAva') !== 'undefined') {
+                document.getElementById('adminAva').src = '/img/icons/profile(Dark).svg';
+            }
+        }
+    });
+</script>

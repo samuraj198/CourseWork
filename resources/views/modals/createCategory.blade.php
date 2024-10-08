@@ -7,7 +7,7 @@
             <div class="flex items-start gap-5">
                 <div class="shrink-0 relative w-[250px] h-[200px] bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center">
                     <img id="CategoryPreview" src="/img/icons/Camera.svg" alt="Аватар" class="object-cover cursor-pointer">
-                    <input name="img" id="file" type="file" accept="image/*" class="absolute inset-0 cursor-pointer opacity-0" onchange="previewFile(event)">
+                    <input name="img" id="file" type="file" accept="image/*" class="absolute inset-0 cursor-pointer opacity-0" onchange="previewCategory(event)">
                 </div>
                 <div class="flex-1">
                     <label for="file" class="block text-lg font-medium text-gray-700" id="uploadLabel">
@@ -22,7 +22,7 @@
     </form>
 </div>
 <script>
-    function previewFile(event){
+    function previewCategory(event){
         const readerCategory = new FileReader();
         readerCategory.onload = function() {
             const outputCategory = document.getElementById('CategoryPreview');
