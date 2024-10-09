@@ -9,7 +9,7 @@
                 <input name="filename" type="text" class="w-full border-[1px] border-solid border-black rounded-lg py-[13px] pl-[15px] pr-[100px] dark:border-white dark:bg-black dark:text-white" placeholder="Введите название 3d-модели">
                 <input type="submit" value="Поиск" class="h-full absolute right-0 text-white bg-black rounded-r-lg px-5 cursor-pointer border-solid border-[1px] border-black dark:border-white">
             </form>
-            <form class="rounded-lg border-black border-[1px] dark:border-white dark:bg-black dark:text-white" action="">
+            <form class="rounded-lg border-black border-[1px] dark:border-white dark:bg-black dark:text-white" action="{{ route('catalog') }}">
                 @csrf
                 <input name="filename" class="hidden" value="@if(!empty($filename)){{ $filename }}@endif">
                 <select name="categ" onchange="this.form.submit()" class="py-[13px] px-[15px] rounded-lg dark:bg-black">

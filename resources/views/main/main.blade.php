@@ -42,7 +42,7 @@
             </button>
             @if(\Illuminate\Support\Facades\Auth::user())
                 <a href="{{ route('profile', auth()->user()->login) }}"><x-button text="Профиль" /></a>
-                <form method="POST" action="{{ route('auth') }}">
+                <form class="mb-0 !important" method="POST" action="{{ route('auth') }}">
                     @csrf
                     @method('DELETE')
                     <a type="submit"><x-button text="Выйти" /></a>
