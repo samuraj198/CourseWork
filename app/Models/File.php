@@ -23,4 +23,7 @@ class File extends Model
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function downloadHistory(){
+        return $this->belongsTo(History::class, 'file_id');
+    }
 }

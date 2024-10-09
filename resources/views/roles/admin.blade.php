@@ -55,9 +55,18 @@
             @endforelse
         </div>
         <div id="my-history" class="hidden">
-            <div class="card w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg">
-                История скачиваний
-            </div>
+            @forelse($history as $work)
+                <div class="card flex flex-col items-center relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
+                    <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="storage/files_previews/{{$work->file->img}}" alt="">
+                    <p class="text-center dark:text-white">{{$work->file->name}}</p>
+                    <p class="text-center dark:text-white">{{$work->file->information}}</p>
+                    <p class="text-center dark:text-white">{{$work->file->category->name}}</p>
+                    <a class="underline dark:text-white" href="{{ route('profile', $work->user->login) }}">{{ $work->user->login }}</a>
+                    <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black" href="{{ route('downloadFile', $work->file->id) }}">Скачать</a>
+                </div>
+            @empty
+                <p class="dark:text-white">Пока нет загруженных работ</p>
+            @endforelse
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\History;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +19,28 @@ class FilesController extends Controller
         //
     }
 
-    public function downloadFile($id){
+    public function downloadFile($id)
+    {
         $fileRecord = File::findOrFail($id);
-
         $filePath = storage_path('app/public/files/'.$fileRecord->file);
+
         if (!file_exists($filePath)) {
             return response()->json(['message' => 'Файл не найден'], Response::HTTP_NOT_FOUND);
+        } else {
+            $file = History::where('user_id', \auth()->user()->id)->where('file_id', $id);
         }
 
-        // Возврат файла как ответа
-        return response()->download($filePath, $fileRecord->file);
+        if (auth()->check()) {
+            if (!empty($file)) {
+                $history = History::firstOrCreate([
+                    'user_id' => auth()->user()->id,
+                    'file_id' => $id,
+                ]);
+            }
+            return response()->download($filePath, $fileRecord->file);
+        } else {
+            return back()->withErrors('Перед скачиванием необходимо зайти в аккаунт');
+        }
     }
 
     /**

@@ -28,6 +28,11 @@ class User extends Authenticatable
         return $this->hasMany(File::class, 'user_id');
     }
 
+    public function downloadHistory()
+    {
+        return $this->hasMany(History::class, 'user_id');
+    }
+
     public function hasRole($role)
     {
         return $this->role == $role;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\File;
+use App\Models\History;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,9 @@ class ProfileController extends Controller
         $user = User::where('login', $login)->firstOrFail();
         $categories = Category::all();
         $works = File::where('user_id', $user->id)->get();
+        $history = History::where('user_id', $user->id)->get();
 
-        return view('pages/profile', compact('user', 'categories', 'works'));
+        return view('pages/profile', compact('user', 'categories', 'works', 'history'));
     }
 
     /**

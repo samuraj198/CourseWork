@@ -29,9 +29,9 @@
         </a>
         <nav>
             <ul class="flex gap-5 text-xl dark:text-white">
-                <li><a href="{{ route('index') }}">Главная</a></li>
-                <li><a href="{{ route('catalog') }}">Каталог</a></li>
-                <li><a href="{{ route('aboutUs') }}">О Сервисе</a></li>
+                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ route('index') }}">Главная</a></li>
+                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ route('catalog') }}">Каталог</a></li>
+                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ route('aboutUs') }}">О Сервисе</a></li>
             </ul>
         </nav>
         <div class="buttons flex gap-[15px] items-center">
