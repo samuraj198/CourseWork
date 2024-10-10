@@ -4,13 +4,70 @@
     <h2 class="text-2xl font-bold mb-5 dark:text-white">ВХОД</h2>
     <form method="POST" action="{{ route('auth') }}" class="flex flex-col items-center gap-5 w-full">
         @csrf
-        <input name="login" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="text" placeholder="Введите логин">
-        <input name="password" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="password" placeholder="Введите пароль">
-        <a type="submit"><x-button text="Войти" /></a>
+        <div class="loginBlock w-full flex flex-col items-center">
+            <input id="loginInput" name="login" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="text" placeholder="Введите логин">
+            <p class="hidden text-red-500 mt-2" id="loginError"></p>
+        </div>
+        <div class="passwordBlock w-full flex flex-col items-center">
+            <input id="passwordInput" name="password" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="password" placeholder="Введите пароль">
+            <p class="hidden text-red-500 mt-2" id="passwordError"></p>
+        </div>
+        <a type="submit"><x-button id="loginButton" text="Войти" /></a>
     </form>
     <p class="dark:text-white">Нет аккаунта? <a href="{{ route('register') }}" class="underline decoration-solid hover:text-blue-500 transition-all duration-300">Зарегистрироваться</a></p>
 </div>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        loginInput = document.getElementById('loginInput');
+        passwordInput = document.getElementById('passwordInput');
+        loginButton = document.getElementById('loginButton');
+
+        //disabled for button
+        loginButton.disabled = true;
+        loginButton.classList.add('disabled');
+
+        //blocks for errors
+        loginError = document.getElementById('loginError');
+        passwordError = document.getElementById('passwordError');
+
+        function loginValidate() {
+            let valid = true;
+
+            loginError.textContent = '';
+            passwordError.textContent = '';
+            loginInput.style.borderColor = 'white';
+            passwordInput.style.borderColor = 'white';
+
+            if (loginInput.value.trim() === '' || passwordInput.value.trim() === '') {
+                valid = false;
+                loginError.textContent = '';
+                passwordError.textContent = '';
+                loginInput.style.borderColor = 'white';
+                passwordInput.style.borderColor = 'white';
+                passwordError.classList.add('hidden');
+                loginError.classList.add('hidden');
+            }
+            if (!/^\w+$/.test(loginInput.value.trim()) && loginInput.value.trim() !== '') {
+                valid = false;
+                loginError.textContent = 'Логин должен быть написан на латинице';
+                loginInput.style.borderColor = '#ef4444';
+                loginError.classList.remove('hidden');
+            }
+            if(passwordInput.value.trim() !== '' && passwordInput.value.trim().length < 8){
+                valid = false;
+                passwordError.textContent = 'Пароль должен содержать минимум 8 символов';
+                passwordInput.style.borderColor  = '#ef4444';
+                passwordError.classList.remove('hidden');
+            }
+
+            loginButton.disabled = !valid;
+            loginInput.classList.toggle('disabled', !valid);
+        }
+
+        loginInput.addEventListener('input', loginValidate);
+        passwordInput.addEventListener('input', loginValidate);
+    });
+
     const htmlElement = document.documentElement;
 
     if (localStorage.getItem('theme') === 'dark') {

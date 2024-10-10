@@ -21,17 +21,29 @@
                 Отменить
             </button>
         </div>
-        <input name="login" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
-               type="text" placeholder="Введите логин">
-        <input name="email" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
-               type="email" placeholder="Введите почту">
-        <input name="password" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
-               type="password" placeholder="Введите пароль">
-        <input name="password_confirmation"
-               class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="password"
-               placeholder="Повторите пароль">
+        <div class="loginBlock flex flex-col items-center w-full">
+            <input id="loginInput" name="login" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
+                   type="text" placeholder="Введите логин">
+            <p class="hidden text-red-500 mt-2" id="loginError"></p>
+        </div>
+        <div class="emailBlock flex flex-col items-center w-full">
+            <input id="emailInput" name="email" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
+                   type="email" placeholder="Введите почту">
+            <p class="hidden text-red-500 mt-2" id="emailError"></p>
+        </div>
+        <div class="passwordError flex flex-col items-center w-full">
+            <input id="passwordInput" name="password" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
+                   type="password" placeholder="Введите пароль">
+            <p class="hidden text-red-500 mt-2" id="passwordError"></p>
+        </div>
+        <div class="confError flex flex-col items-center w-full">
+            <input id="confInput" name="password_confirmation"
+                   class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="password"
+                   placeholder="Повторите пароль">
+            <p class="hidden text-red-500 mt-2" id="confError"></p>
+        </div>
         <button type="submit">
-            <x-button text="Зарегистрироваться"/>
+            <x-button id="regButton" text="Зарегистрироваться"/>
         </button>
     </form>
     <p class="dark:text-white">Уже есть аккаунт? <a href="{{ route('auth') }}"
@@ -45,6 +57,85 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        loginInput = document.getElementById('loginInput');
+        emailInput = document.getElementById('emailInput');
+        passwordInput = document.getElementById('passwordInput');
+        confInput = document.getElementById('confInput');
+        regButton = document.getElementById('regButton');
+
+        //disabled for button
+        regButton.disabled = true;
+        regButton.classList.add('disabled');
+
+        //blocks for errors
+        loginError = document.getElementById('loginError');
+        emailError = document.getElementById('emailError');
+        passwordError = document.getElementById('passwordError');
+        confError = document.getElementById('confError');
+
+        function regValidate() {
+            let valid = true;
+
+            loginError.textContent = '';
+            emailError.textContent = '';
+            passwordError.textContent = '';
+            confError.textContent = '';
+            loginInput.style.borderColor = 'white';
+            emailInput.style.borderColor = 'white';
+            passwordInput.style.borderColor = 'white';
+            confInput.style.borderColor = 'white';
+
+            if (loginInput.value.trim() === '' || passwordInput.value.trim() === '' || emailInput.value.trim() === '' || confInput.value.trim() === '' ) {
+                valid = false;
+                loginError.textContent = '';
+                emailError.textContent = '';
+                passwordError.textContent = '';
+                confError.textContent = '';
+                loginInput.style.borderColor = 'white';
+                emailInput.style.borderColor = 'white';
+                passwordInput.style.borderColor = 'white';
+                confInput.style.borderColor = 'white';
+                passwordError.classList.add('hidden');
+                loginError.classList.add('hidden');
+                emailError.classList.add('hidden');
+                confError.classList.add('hidden');
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailInput.value.trim()) && emailInput.value.trim() !== '') {
+                valid = false;
+                emailError.textContent = 'Неверный формат почты';
+                emailInput.style.borderColor = '#ef4444'
+                emailError.classList.remove('hidden');
+            }
+            if (!/^\w+$/.test(loginInput.value.trim()) && loginInput.value.trim() !== '') {
+                valid = false;
+                loginError.textContent = 'Логин должен быть написан на латинице';
+                loginInput.style.borderColor = '#ef4444';
+                loginError.classList.remove('hidden');
+            }
+            if(passwordInput.value.trim() !== '' && passwordInput.value.trim().length < 8){
+                valid = false;
+                passwordError.textContent = 'Пароль должен содержать минимум 8 символов';
+                passwordInput.style.borderColor  = '#ef4444';
+                passwordError.classList.remove('hidden');
+            }
+            if (confInput.value.trim() !== '' && passwordInput.value.trim() !== '' && confInput.value.trim() !== passwordInput.value.trim()) {
+                valid = false;
+                confError.textContent = 'Пароли не совпадают';
+                confInput.style.borderColor = '#ef4444';
+                confError.classList.remove('hidden');
+            }
+
+            regButton.disabled = !valid;
+            loginInput.classList.toggle('disabled', !valid);
+        }
+
+        loginInput.addEventListener('input', regValidate);
+        emailInput.addEventListener('input', regValidate);
+        passwordInput.addEventListener('input', regValidate);
+        confInput.addEventListener('input', regValidate);
+    });
+
     const htmlElement = document.documentElement;
 
     if (localStorage.getItem('theme') === 'dark') {

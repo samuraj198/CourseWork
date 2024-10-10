@@ -12,9 +12,11 @@ class Button extends Component
      * Create a new component instance.
      */
     public $text;
-    public function __construct($text = 'Button')
+    public $id;
+    public function __construct($text = 'Button', $id = null)
     {
         $this->text = $text;
+        $this->id = $id;
     }
 
     /**

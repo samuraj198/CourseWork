@@ -22,7 +22,7 @@
         <h2 class="text-2xl font-bold mb-5 dark:text-white">ПОПУЛЯРНЫЕ КАТЕГОРИИ</h2>
         <div class="blocks w-[1600px] h-[200px] flex gap-5">
             @forelse($categories as $category)
-                <div id="card-{{$category->id}}" class="block rounded-lg border-black border-solid border-[1px] w-[250px] h-[200px] font-bold text-white text-2xl flex items-center justify-center dark:border-[1px] dark:border-white">
+                <div id="card-{{$category->id}}" class="block rounded-lg border-black border-solid border-[1px] w-[250px] h-[200px] font-bold text-white text-2xl flex items-center justify-center dark:border-[1px] dark:border-white hover:scale-105 transition-all duration-300">
                     <form class="w-full h-full" action="{{ route('catalog') }}">
                         @csrf
                         <input class="hidden" name="categ" value="{{ $category->id }}">
