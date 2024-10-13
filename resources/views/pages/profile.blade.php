@@ -35,22 +35,33 @@
                 downloadHistoryBtn.style.textDecoration = 'underline';
                 myWorksBtn.style.textDecoration = 'none';
             });
-
-            function openWorkModal() {
-                document.getElementById('modalWork').classList.remove('hidden');
-            }
-
-            function closeWorkModal() {
-                document.getElementById('modalWork').classList.add('hidden');
-            }
-
-            function openCategoryModal() {
-                document.getElementById('modalCategory').classList.remove('hidden');
-            }
-
-            function closeCategoryModal() {
-                document.getElementById('modalCategory').classList.add('hidden');
-            }
         });
+    function openWorkModal() {
+            document.getElementById('modalWork').classList.remove('hidden');
+
+            //Очистка полей
+            //Заполнение полей
+            document.getElementById('name').value = '';
+            document.getElementById('information').value = '';
+            document.getElementById('category_id').value = 0;
+            document.getElementById('filePreview').src = '/img/icons/Camera.svg';
+            document.getElementById('filePreview').classList.remove('h-full');
+
+            document.getElementById('upText').textContent = 'Загрузите фотографию модели';
+            document.getElementById('fileBlock').classList.remove('hidden');
+            document.getElementById('formName').textContent = 'ОПУБЛИКОВАТЬ РАБОТУ';
+        }
+
+        function closeWorkModal() {
+            document.getElementById('modalWork').classList.add('hidden');
+        }
+
+        function openCategoryModal() {
+            document.getElementById('modalCategory').classList.remove('hidden');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('modalCategory').classList.add('hidden');
+        }
     </script>
 @endsection

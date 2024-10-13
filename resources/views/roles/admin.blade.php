@@ -10,8 +10,8 @@
     @else
         <img class="w-[120px] h-[120px] rounded-full object-cover" src="/storage/avatars/{{$user->ava}}" alt="">
     @endif
-    <h2 class="text-2xl">{{ $user->login }}
-        <span class="text-black/50 text-sm">
+    <h2 class="text-2xl dark:text-white">{{ $user->login }}
+        <span class="text-black/50 text-sm dark:text-white/50">
             @if(auth()->check() && $user->id == auth()->user()->id)
                 (Admin)
             @endif
@@ -44,6 +44,12 @@
         <div id="my-works" class="flex gap-[30px] flex-wrap w-full justify-center">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
+                    @if($user->id === auth()->user()->id)
+                        <div class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
+                            <a href=""><img class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300" src="img/icons/settings.svg" alt=""></a>
+                            <a href=""><img class="opacity-80 w-[20px] hover:opacity-100 transition-all duration-300" src="img/icons/trash.svg" alt=""></a>
+                        </div>
+                    @endif
                     <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="storage/files_previews/{{$work->img}}" alt="">
                     <p class="text-center dark:text-white">{{$work->name}}</p>
                     <p class="text-center dark:text-white">{{$work->information}}</p>
@@ -61,11 +67,15 @@
                     <p class="text-center dark:text-white">{{$work->file->name}}</p>
                     <p class="text-center dark:text-white">{{$work->file->information}}</p>
                     <p class="text-center dark:text-white">{{$work->file->category->name}}</p>
-                    <a class="underline dark:text-white" href="{{ route('profile', $work->user->login) }}">{{ $work->user->login }}</a>
+                    <a class="underline dark:text-white" href="{{ route('profile', $work->file->user->login) }}">{{ $work->file->user->login }}</a>
                     <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black" href="{{ route('downloadFile', $work->file->id) }}">Скачать</a>
                 </div>
             @empty
-                <p class="dark:text-white">Пока нет загруженных работ</p>
+                @if(auth()->user()->id != $user->id)
+                    <p class="dark:text-white">Пользователь ничего не скачивал</p>
+                @else
+                    <p class="dark:text-white">Вы ничего не скачивали</p>
+                @endif
             @endforelse
         </div>
     </div>

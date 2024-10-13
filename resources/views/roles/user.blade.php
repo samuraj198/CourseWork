@@ -46,6 +46,17 @@
         <div id="my-works" class="flex gap-[30px] flex-wrap w-full justify-center">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
+                    @if($user->id === auth()->user()->id)
+                        <div class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
+                            <a class="cursor-pointer w-[20px] h-[20px]" onclick="changeWorkModal({{ $work->id }}, '{{ $work->img }}', '{{ $work->name }}', '{{ $work->category_id }}', '{{ $work->information }}', '{{ $work->file }}')"><img class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300" src="img/icons/settings.svg" alt=""></a>
+                            <form class="h-[20px] w-[20px]" method="POST" action="{{ route('deleteFile') }}">
+                                @csrf
+                                @method('DELETE')
+                                <input class="hidden" name="id" type="text" value="{{ $work->id }}">
+                                <button type="submit"><img class="opacity-80 w-[20px] hover:opacity-100 transition-all duration-300" src="img/icons/trash.svg" alt=""></button>
+                            </form>
+                        </div>
+                    @endif
                     <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="storage/files_previews/{{$work->img}}" alt="">
                     <p class="text-center dark:text-white">{{$work->name}}</p>
                     <p class="text-center dark:text-white">{{$work->information}}</p>
@@ -63,12 +74,34 @@
                     <p class="text-center dark:text-white">{{$work->file->name}}</p>
                     <p class="text-center dark:text-white">{{$work->file->information}}</p>
                     <p class="text-center dark:text-white">{{$work->file->category->name}}</p>
-                    <a class="underline dark:text-white" href="{{ route('profile', $work->user->login) }}">{{ $work->user->login }}</a>
+                    <a class="underline dark:text-white" href="{{ route('profile', $work->file->user->login) }}">{{ $work->file->user->login }}</a>
                     <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black" href="{{ route('downloadFile', $work->file->id) }}">Скачать</a>
                 </div>
             @empty
-                <p class="dark:text-white">Пока нет загруженных работ</p>
+                @if(auth()->user()->id != $user->id)
+                    <p class="dark:text-white">Пользователь ничего не скачивал</p>
+                @else
+                    <p class="dark:text-white">Вы ничего не скачивали</p>
+                @endif
             @endforelse
         </div>
     </div>
 </div>
+<script>
+    function changeWorkModal(id, img, name, category_id, information, file) {
+        document.getElementById('modalWork').classList.remove('hidden');
+
+        //Заполнение полей
+        document.getElementById('name').value = name;
+        document.getElementById('information').value = information;
+        document.getElementById('category_id').value = category_id;
+        document.getElementById('filePreview').src = 'storage/files_previews/' + img;
+        document.getElementById('filePreview').classList.add('h-full');
+        document.getElementById('changeId').value = id;
+
+        //Изменение формы под модалку изменения файла
+        document.getElementById('upText').textContent = 'Выберите новое фото';
+        document.getElementById('fileBlock').classList.add('hidden');
+        document.getElementById('formName').textContent = 'ИЗМЕНИТЬ РАБОТУ';
+    }
+</script>
