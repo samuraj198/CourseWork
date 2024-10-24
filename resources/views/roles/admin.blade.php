@@ -83,4 +83,7 @@
             @endforelse
         </div>
     </div>
+    <div class="pagination mt-[25px]">
+        {{ $works->links('pagination::bootstrap-4') }}
+    </div>
 </div>

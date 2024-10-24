@@ -17,7 +17,7 @@ class ProfileController extends Controller
     {
         $user = User::where('login', $login)->firstOrFail();
         $categories = Category::all();
-        $works = File::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $works = File::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(12);
         $history = History::where('user_id', $user->id)->get();
 
         return view('pages/profile', compact('user', 'categories', 'works', 'history'));

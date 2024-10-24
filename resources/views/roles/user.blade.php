@@ -90,6 +90,9 @@
             @endforelse
         </div>
     </div>
+    <div class="pagination mt-[25px]">
+        {{ $works->links('pagination::bootstrap-4') }}
+    </div>
 </div>
 <script>
     function changeWorkModal(id, img, name, category_id, information, file) {
