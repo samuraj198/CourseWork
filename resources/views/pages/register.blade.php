@@ -42,17 +42,21 @@
                    placeholder="Повторите пароль">
             <p class="hidden text-red-500 mt-2" id="confError"></p>
         </div>
-        <button type="submit">
+        <a type="submit">
             <x-button id="regButton" text="Зарегистрироваться"/>
-        </button>
+        </a>
     </form>
     <p class="dark:text-white">Уже есть аккаунт? <a href="{{ route('auth') }}"
                             class="underline decoration-solid hover:text-blue-500 transition-all duration-300">Войти</a>
     </p>
     @if($errors->any())
-        @foreach($errors->all() as $error)
-            <p class="break-words">{{ $error }}</p>
-        @endforeach
+        <div class="error text-red-500 mt-10">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 </div>
 

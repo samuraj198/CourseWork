@@ -37,6 +37,10 @@ class RegisteredUserController extends Controller
             'login' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+        ],
+        [
+            'login.unique' => 'Такой логин уже зарегистрирован',
+            'email.unique' => 'Такая почта уже зарегистрирована',
         ]);
 
         if ($request->hasFile('ava')) {

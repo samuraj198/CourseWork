@@ -6,8 +6,47 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0%);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        .success{
+            animation: slideIn 0.5s ease-out, fadeOut 0.5s ease-out 4.5s;
+        }
+        .error{
+            animation: slideIn 0.5s ease-out, fadeOut 0.5s ease-out 4.5s;
+        }
+    </style>
     <title>@yield('title')</title>
 </head>
+<div class="notifs-case absolute top-0 left-0 w-full z-50 flex">
+    @if(session('success'))
+        <div class="success fixed max-w-96 hidden border-black border-[1px] bg-white text-black px-5 py-3 rounded-lg bottom-5 right-5 z-50 dark:text-white dark:bg-black dark:border-white">
+            <p class="break-words">{{ session('success') }}</p>
+        </div>
+    @elseif($errors->any())
+        <div class="error fixed hidden max-w-96 border-black border-[1px] bg-white text-black px-5 py-3 rounded-lg bottom-5 right-5 z-50 dark:text-white dark:bg-black dark:border-white">
+            @foreach($errors->all() as $error)
+                <p class="break-words">{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+</div>
 <body class="flex flex-col items-center dark:bg-black">
     <header class="mb-20 mt-[50px] flex justify-between items-center w-[95%]">
         <a href="{{ route('index') }}">
@@ -84,6 +123,23 @@
 </body>
 </html>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const success = document.querySelector('.success');
+        if (success) {
+            success.classList.remove('hidden');
+            setTimeout(() => {
+                success.classList.add('hidden');
+            }, 5000);
+        }
+        const error = document.querySelector('.error');
+        if (error) {
+            error.classList.remove('hidden');
+            setTimeout(() => {
+                error.classList.add('hidden');
+            }, 5000);
+        }
+    });
+
     const themeToggle = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
 
