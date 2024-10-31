@@ -47,7 +47,7 @@
             @forelse($works as $work)
                 <div class="blockForCard p-[15px]">
                     <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                        @if($user->id === auth()->user()->id)
+                        @if(auth()->check() && $user->id === auth()->user()->id)
                             <div class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                 <a class="cursor-pointer w-[20px] h-[20px]" onclick="changeWorkModal({{ $work->id }}, '{{ $work->img }}', '{{ $work->name }}', '{{ $work->category_id }}', '{{ $work->information }}', '{{ $work->file }}')"><img class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300" src="img/icons/settings.svg" alt=""></a>
                                 <form class="h-[20px] w-[20px]" method="POST" action="{{ route('deleteFile') }}">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             @empty
-                @if(auth()->user()->id != $user->id)
+                @if(auth()->check() && auth()->user()->id != $user->id)
                     <p class="dark:text-white">Пользователь ничего не скачивал</p>
                 @else
                     <p class="dark:text-white">Вы ничего не скачивали</p>
