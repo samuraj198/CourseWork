@@ -5,11 +5,15 @@
     <form method="POST" action="{{ route('auth') }}" class="flex flex-col items-center gap-5 w-full">
         @csrf
         <div class="loginBlock w-full flex flex-col items-center">
-            <input id="loginInput" name="login" class="w-1/3 border-black !important border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="text" placeholder="Введите логин">
+            <input id="loginInput" name="login" class="w-1/3 border-black !important border-solid border-[1px]
+             py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
+                   type="text" placeholder="Введите логин" required autocomplete="login">
             <p class="hidden text-red-500 mt-2" id="loginError"></p>
         </div>
         <div class="passwordBlock w-full flex flex-col items-center">
-            <input id="passwordInput" name="password" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="password" placeholder="Введите пароль">
+            <input id="passwordInput" name="password" class="w-1/3 border-black border-solid border-[1px] py-[13px]
+             pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
+                   type="password" placeholder="Введите пароль" required autocomplete="current-password">
             <p class="hidden text-red-500 mt-2" id="passwordError"></p>
         </div>
         <a type="submit"><x-button id="loginButton" text="Войти" /></a>
@@ -32,7 +36,11 @@
         loginButton = document.getElementById('loginButton');
 
         //disabled for button
-        loginButton.disabled = true;
+        if (loginInput.value.trim() === '' || passwordInput.value.trim() === '') {
+            loginButton.disabled = true;
+        } else {
+            loginButton.disabled = false;
+        }
         loginButton.classList.add('disabled');
 
         //blocks for errors

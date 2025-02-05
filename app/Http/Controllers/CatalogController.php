@@ -19,12 +19,12 @@ class CatalogController extends Controller
 
         $files = File::when(!empty($filename) || !empty($categ), function ($query) use ($filename, $categ) {
             if (!empty($filename)) {
-                $query->where('name', 'like', "%{$filename}%")->paginate(18);
+                $query->where('name', 'like', "%{$filename}%");
             }
             if (!empty($categ)) {
-                $query->where('category_id', $categ)->paginate(18);
+                $query->where('category_id', $categ);
             }
-        })->get();
+        })->paginate(18);
 
         if (!empty($categ)) {
             $categ_name = Category::where('id', $categ)->value('name');

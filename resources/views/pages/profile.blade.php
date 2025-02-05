@@ -26,6 +26,10 @@
                     @elseif($user->hasRole('Admin'))
                         (Вы)(Admin)
                     @endif
+            @else
+                @if($user->hasRole('Admin'))
+                    (Admin)
+                @endif
             @endif
         </span></h2>
         @if(auth()->check() && $user->id == auth()->user()->id)

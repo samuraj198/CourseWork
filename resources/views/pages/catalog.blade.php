@@ -74,4 +74,7 @@
             <p class="dark:text-white">Нет таких работ</p>
         @endforelse
     </div>
+    <div class="pagination mt-[25px]">
+        {{ $files->links('pagination::bootstrap-4') }}
+    </div>
 @endsection
