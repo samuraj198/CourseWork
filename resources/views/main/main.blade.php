@@ -95,7 +95,7 @@
     <main class="w-[95%] flex flex-col items-center">
         @yield('content')
     </main>
-    <footer class="pt-20 w-[95%] border-t-[1px] border-solid border-black mt-14 flex flex-col items-center justify-center pb-[25px] dark:border-white">
+    <footer class="pt-10 w-[95%] border-t-[1px] border-solid border-black mt-14 flex flex-col items-center justify-center pb-[25px] dark:border-white">
         <nav>
             <ul class="flex gap-5 text-xl dark:text-white">
                 <li><a href="{{ route('index') }}">Главная</a></li>
@@ -103,7 +103,7 @@
                 <li><a href="{{ route('aboutUs') }}">О Сервисе</a></li>
             </ul>
         </nav>
-        <div class="footer-logo-and-name flex flex-col items-center justify-center mt-20">
+        <div class="footer-logo-and-name flex flex-col items-center justify-center mt-10">
             <div class="logo">
                 <svg width="100" height="63" viewBox="0 0 100 63" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path class="stroke-black dark:stroke-white" d="M82.2223 43.9117C82.2223 48.4396 81.3151 51.5395 79.8985 53.7157C78.4978 55.8673 76.4421 57.3572 73.6777 58.3896C70.8701 59.4382 67.4095 59.9837 63.3512 60.2511C59.5447 60.5019 55.3689 60.5009 50.8774 60.4998C50.5863 60.4998 50.2938 60.4997 50.0001 60.4997C49.7063 60.4997 49.4138 60.4998 49.1227 60.4998C44.6312 60.5009 40.4554 60.5019 36.6489 60.2511C32.5906 59.9837 29.1301 59.4382 26.3224 58.3896C23.558 57.3572 21.5023 55.8673 20.1016 53.7157C18.685 51.5395 17.7778 48.4396 17.7778 43.9117C17.7778 25.8622 32.2317 11.2803 50.0001 11.2803C67.7684 11.2803 82.2223 25.8622 82.2223 43.9117Z" stroke="black" stroke-width="5"/>
@@ -117,7 +117,7 @@
                 </svg>
             </div>
             <p class="name text-2xl font-bold dark:text-white">FreeModels</p>
-            <p class="text-black/50 font-bold dark:text-white/50">©FreeModels 2023-2024</p>
+            <p class="text-black/50 font-bold dark:text-white/50">FreeModels 2023-2025</p>
         </div>
     </footer>
 </body>

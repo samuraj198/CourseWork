@@ -7,8 +7,12 @@ export default {
   ],
     darkMode: 'class',
   theme: {
+      screens: {
+        'mobileL': '426px',
+        'mobileM': '376px',
+        'mobileS': '321px',
+      },
     extend: {},
   },
   plugins: [],
 }
-

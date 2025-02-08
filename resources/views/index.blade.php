@@ -19,8 +19,8 @@
         </form>
     </div>
     <div class="categories-block flex flex-col items-center mb-16">
-        <h2 class="text-2xl font-bold mb-5 dark:text-white">ПОПУЛЯРНЫЕ КАТЕГОРИИ</h2>
-        <div class="blocks w-[1600px] h-[200px] flex gap-5">
+        <h2 class="text-2xl font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">ПОПУЛЯРНЫЕ КАТЕГОРИИ</h2>
+        <div class="blocks w-full max-w-[1600px] min-h-[200px] flex flex-wrap justify-center gap-5">
             @forelse($categories as $category)
                 <div id="card-{{$category->id}}" class="block rounded-lg border-black border-solid border-[1px] w-[250px] h-[200px] font-bold text-white text-2xl flex items-center justify-center dark:border-[1px] dark:border-white hover:scale-105 transition-all duration-300">
                     <form class="w-full h-full" action="{{ route('catalog') }}">
@@ -30,19 +30,23 @@
                     </form>
                 </div>
             @empty
-                <p class="dark:text-white">Нет категорий</p>
+                <p class="text-center dark:text-white">Нет категорий</p>
             @endforelse
         </div>
     </div>
     <div class="categories-block flex flex-col items-center">
-        <h2 class="text-2xl font-bold mb-5 dark:text-white">ПОСЛЕДНИЕ ДОБАВЛЕННЫЕ МОДЕЛИ</h2>
-        <div class="blocks flex gap-[30px] max-w-[1600px] mb-10">
+        <h2 class="text-2xl font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">ПОСЛЕДНИЕ ДОБАВЛЕННЫЕ МОДЕЛИ</h2>
+        <div class="blocks flex flex-wrap justify-center gap-5 max-w-[1600px] mb-10">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg flex flex-col items-center dark:border-[1px] dark:border-white">
                     <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="storage/files_previews/{{$work->img}}" alt="">
                     <p class="text-center dark:text-white">{{$work->name}}</p>
                     <p class="text-center dark:text-white">{{$work->information}}</p>
-                    <p class="text-center dark:text-white">{{$work->category->name}}</p>
+                    <form action="{{ route('catalog') }}">
+                        @csrf
+                        <input class="hidden" name="categ" value="{{ $work->category->id }}">
+                        <input type="submit" class="text-center cursor-pointer underline dark:text-white" value="{{$work->category->name}}">
+                    </form>
                     <a class="underline dark:text-white" href="{{ route('profile', $work->user->login) }}">{{ $work->user->login }}</a>
                     <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black" href="{{ route('downloadFile', $work->id) }}">Скачать</a>
                 </div>
