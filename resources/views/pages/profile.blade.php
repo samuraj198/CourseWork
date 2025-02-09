@@ -37,7 +37,7 @@
                 <a onclick="openWorkModal()"><x-button text="Загрузить работу"/></a>
             @elseif($user->hasRole('Admin'))
                 @include('modals/createCategory')
-                <div class="btns flex gap-5">
+                <div class="btns flex items-center justify-center gap-5 max-mobileL:flex-col max-mobileL:gap-2">
                     <a onclick="openWorkModal()"><x-button text="Загрузить работу"/></a>
                     <a onclick="openCategoryModal()"><x-button text="Создать категорию"/></a>
                 </div>
@@ -50,18 +50,18 @@
         @endif
     </div>
     <div class="buttons-and-cards flex flex-col items-center w-full">
-        <div class="buttons flex gap-5 text-2xl mb-[35px]">
+        <div class="buttons flex gap-5 text-2xl mb-[35px] max-mobileL:text-xl max-mobileL:gap-2">
             @if(auth()->check() && $user->id == auth()->user()->id)
-                <button id="myWorksBtn" class="w-[230px] text-right underline dark:text-white">
+                <button id="myWorksBtn" class="text-right underline dark:text-white max-mobileS:text-base">
                     Мои работы
                 </button>
             @else
-                <button id="myWorksBtn" class="w-[230px] text-right underline dark:text-white">
+                <button id="myWorksBtn" class="text-right underline dark:text-white max-mobileS:text-base">
                     Работы
                 </button>
             @endif
-            <div class="line w-[1px] h-8 border-black border-solid border-[1px] dark:border-white"></div>
-            <button id="myHistoryBtn" class="w-[230px] dark:text-white">
+            <div class="line w-[1px] h-8 border-black border-solid border-[1px] dark:border-white max-mobileS:h-6"></div>
+            <button id="myHistoryBtn" class=" dark:text-white max-mobileS:text-base">
                 История скачиваний
             </button>
         </div>

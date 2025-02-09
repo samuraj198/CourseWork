@@ -2,7 +2,7 @@
 @section('title', 'Catalog')
 @section('content')
     <div class="search-block w-3/4 mb-14">
-        <div class="forms flex items-center gap-5">
+        <div class="forms flex items-center gap-5 max-tablet:flex-col">
             <form class="relative w-full" action="{{ route('catalog') }}">
                 @csrf
                 <input name="categ" class="hidden" value="@if(!empty($categ)){{ $categ }}@endif">
@@ -57,7 +57,7 @@
             @endif
         </div>
     </div>
-    <div class="cards flex flex-wrap max-w-[1680px]">
+    <div class="cards flex flex-wrap max-w-[1680px] w-full justify-center">
         @forelse($files as $file)
             <div class="blockForCard p-[15px]">
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg flex flex-col items-center dark:border-[1px] dark:border-white">

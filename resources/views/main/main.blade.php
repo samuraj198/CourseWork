@@ -66,7 +66,7 @@
                 <p class="name text-2xl font-bold dark:text-white">FreeModels</p>
             </div>
         </a>
-        <nav>
+        <nav id="menu">
             <ul class="flex gap-5 text-xl dark:text-white">
                 <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ route('index') }}">Главная</a></li>
                 <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ route('catalog') }}">Каталог</a></li>
