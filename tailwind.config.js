@@ -8,6 +8,7 @@ export default {
     darkMode: 'class',
   theme: {
       screens: {
+        'laptopL': '1441px',
         'tablet': '769px',
         'mobileL': '426px',
         'mobileM': '376px',

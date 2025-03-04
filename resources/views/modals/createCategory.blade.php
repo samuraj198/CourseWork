@@ -1,16 +1,22 @@
 <div id="modalCategory" class="modal z-50 hidden w-full h-full bg-black/80 fixed left-0 top-0 flex justify-center items-start">
-    <form method="POST" action="{{ route('createCategory') }}" class="rounded-lg border-[1px] border-black relative flex flex-col items-center gap-5 bg-white p-10 w-1/3 mt-20 dark:bg-black dark:border-white" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('createCategory') }}" class="rounded-lg border-[1px] border-black relative
+    flex flex-col items-center gap-5 bg-white p-10 w-1/3 mt-10 dark:bg-black dark:border-white max-laptopL:w-[50%]
+    max-tablet:w-[80%]"
+          enctype="multipart/form-data">
         @csrf
         <a onclick="closeCategoryModal()" class="absolute right-5 top-2 text-4xl cursor-pointer dark:text-white">&times;</a>
-        <h2 class="text-2xl font-bold text-center dark:text-white">СОЗДАТЬ КАТЕГОРИЮ</h2>
+        <h2 class="text-2xl font-bold text-center dark:text-white max-mobileL:text-xl
+        max-mobileM:text-lg">СОЗДАТЬ КАТЕГОРИЮ</h2>
         <div class="preview w-full">
-            <div class="flex items-start gap-5">
-                <div class="shrink-0 relative w-[250px] h-[200px] bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center">
+            <div class="flex items-start gap-5 max-mobileL:flex-col max-mobileL:text-center">
+                <div class="shrink-0 relative w-[250px] h-[250px] bg-gray-300 rounded-lg overflow-hidden
+                flex items-center justify-center max-mobileM:w-[200px] max-mobileM:h-[200px]">
                     <img id="CategoryPreview" src="/img/icons/Camera.svg" alt="Аватар" class="object-cover cursor-pointer">
                     <input name="img" id="file" type="file" accept="image/*" class="absolute inset-0 cursor-pointer opacity-0" onchange="previewCategory(event)">
                 </div>
                 <div class="flex-1">
-                    <label for="file" class="block text-lg font-medium text-gray-700 dark:text-white" id="uploadLabel">
+                    <label for="file" class="block text-lg font-medium
+                    text-gray-700 dark:text-white max-mobileM:text-base" id="uploadLabel">
                         Загрузите фотографию для категории
                     </label>
                 </div>

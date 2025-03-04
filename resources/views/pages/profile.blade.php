@@ -159,6 +159,8 @@
         function openWorkModal() {
             document.getElementById('modalWork').classList.remove('hidden');
 
+            document.body.classList.add('no-scroll');
+
             //Очистка полей
             //Заполнение полей
             document.getElementById('name').value = '';
@@ -191,14 +193,17 @@
 
         function closeWorkModal() {
             document.getElementById('modalWork').classList.add('hidden');
+            document.body.classList.remove('no-scroll');
         }
 
         function openCategoryModal() {
             document.getElementById('modalCategory').classList.remove('hidden');
+            document.body.classList.add('no-scroll');
         }
 
         function closeCategoryModal() {
             document.getElementById('modalCategory').classList.add('hidden');
+            document.body.classList.remove('no-scroll');
         }
     </script>
 @endsection
