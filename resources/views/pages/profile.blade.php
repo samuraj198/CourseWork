@@ -37,16 +37,13 @@
                 <a onclick="openWorkModal()"><x-button text="Загрузить работу"/></a>
             @elseif($user->hasRole('Admin'))
                 @include('modals/createCategory')
+                @include('modals/changeDelCategory')
                 <div class="btns flex items-center justify-center gap-5 max-mobileL:flex-col max-mobileL:gap-2">
                     <a onclick="openWorkModal()"><x-button text="Загрузить работу"/></a>
                     <a onclick="openCategoryModal()"><x-button text="Создать категорию"/></a>
+                    <a onclick="openChangeCategoryModal()"><x-button text="Изменить категории"/></a>
                 </div>
             @endif
-        @endif
-        @if($errors->any())
-            @foreach($errors->all() as $error)
-                <p class="break-words dark:text-white">{{ $error }}</p>
-            @endforeach
         @endif
     </div>
     <div class="buttons-and-cards flex flex-col items-center w-full">
@@ -71,7 +68,7 @@
                     <div class="blockForCard p-[15px]">
                         <div
                             class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                            @if(auth()->check() && $user->id === auth()->user()->id)
+                            @if(auth()->check() && $user->id === auth()->user()->id || auth()->user()->hasRole('Admin'))
                                 <div
                                     class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                     <a class="cursor-pointer w-[20px] h-[20px]"
@@ -107,6 +104,23 @@
                     <div class="blockForCard p-[15px]">
                         <div
                             class="card flex flex-col items-center relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
+                            @if(auth()->check() && $user->id === auth()->user()->id || auth()->user()->hasRole('Admin'))
+                                <div
+                                    class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
+                                    <a class="cursor-pointer w-[20px] h-[20px]"
+                                       onclick="changeWorkModal({{ $work->id }}, '{{ $work->img }}', '{{ $work->name }}', '{{ $work->category_id }}', '{{ $work->information }}', '{{ $work->file }}')"><img
+                                            class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
+                                            src="img/icons/settings.svg" alt=""></a>
+                                    <form class="h-[20px] w-[20px]" method="POST" action="{{ route('deleteFile') }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input class="hidden" name="id" type="text" value="{{ $work->id }}">
+                                        <button type="submit"><img
+                                                class="opacity-80 w-[20px] hover:opacity-100 transition-all duration-300"
+                                                src="img/icons/trash.svg" alt=""></button>
+                                    </form>
+                                </div>
+                            @endif
                             <img
                                 class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
                                 src="storage/files_previews/{{$work->file->img}}" alt="">
@@ -204,6 +218,13 @@
         function closeCategoryModal() {
             document.getElementById('modalCategory').classList.add('hidden');
             document.body.classList.remove('no-scroll');
+        }
+
+        function openChangeCategoryModal() {
+            document.getElementById('modalChangeCategory').classList.remove('hidden');
+        }
+        function closeChangeCategoryModal() {
+            document.getElementById('modalChangeCategory').classList.add('hidden');
         }
     </script>
 @endsection

@@ -34,7 +34,8 @@ class AuthenticateUserController extends Controller
 
         if(Auth::attempt($data)){
             $request->session()->regenerate();
-            return redirect()->intended(route('profile', auth()->user()->login))->with('success', 'Вы успешно вошли в аккаунт');
+            return redirect()->intended(route('profile', auth()->user()->login))
+            ->with('success', 'Вы успешно вошли в аккаунт');
         } else {
             return back()->withErrors('Не удалось войти в аккаунт');
         }

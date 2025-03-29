@@ -57,7 +57,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
         Auth::login($user);
-        return redirect()->route('profile', auth()->user()->login)->with('success', 'Аккаунт успешно зарегистрирован. Вход выполнен');
+        return redirect()->route('profile', auth()->user()->login)
+        ->with('success', 'Аккаунт успешно зарегистрирован. Вход выполнен');
     }
 
     /**

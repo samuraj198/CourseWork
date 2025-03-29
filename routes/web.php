@@ -14,6 +14,7 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::post('createCategory', [CategoriesController::class, 'store'])->name('createCategory');
 Route::post('createWork', [FilesController::class, 'store'])->name('createWork');
 Route::get('downloadFile/{id}', [FilesController::class, 'downloadFile'])->name('downloadFile');
+Route::post('changeCategory', [CategoriesController::class, 'changeCategory'])->name('changeCategory');
 
 Route::get('aboutUs', function () {
     return view('pages/aboutUs');
