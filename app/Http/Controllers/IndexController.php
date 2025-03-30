@@ -15,7 +15,7 @@ class IndexController extends Controller
     {
         $categories = Category::orderBy('created_at', 'desc')->take(6)->get();
         $works = File::orderBy('created_at', 'desc')->take(6)->get();
-        return view('index', compact('categories', 'works'));
+        return view('/', compact('categories', 'works'));
     }
 
     /**
