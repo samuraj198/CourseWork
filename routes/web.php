@@ -10,9 +10,6 @@ use \App\Http\Controllers\IndexController;
 use \App\Http\Controllers\CatalogController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::get('/index', function () {
-   return redirect('/');
-});
 
 Route::post('createCategory', [CategoriesController::class, 'store'])->name('createCategory');
 Route::post('createWork', [FilesController::class, 'store'])->name('createWork');
