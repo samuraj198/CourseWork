@@ -1,8 +1,8 @@
 @vite('resources/css/app.css')
-<a href="{{ route('index') }}" class="absolute left-10 top-5 text-black/50 text-2xl dark:text-white/50">Назад</a>
+<a href="{{ secure_url('index') }}" class="absolute left-10 top-5 text-black/50 text-2xl dark:text-white/50">Назад</a>
 <div class="register-form flex flex-col items-center mt-[100px]">
     <h2 class="text-2xl font-bold mb-5 dark:text-white">РЕГИСТРАЦИЯ</h2>
-    <form method="POST" action="{{ route('register') }}" class="flex flex-col items-center gap-5 w-full"
+    <form method="POST" action="{{ secure_url('register') }}" class="flex flex-col items-center gap-5 w-full"
           enctype="multipart/form-data">
         @csrf
         <div class="ava flex flex-col items-center">
@@ -46,7 +46,7 @@
             <x-button id="regButton" text="Зарегистрироваться"/>
         </a>
     </form>
-    <p class="dark:text-white">Уже есть аккаунт? <a href="{{ route('auth') }}"
+    <p class="dark:text-white">Уже есть аккаунт? <a href="{{ secure_url('auth') }}"
                             class="underline decoration-solid hover:text-blue-500 transition-all duration-300">Войти</a>
     </p>
     @if($errors->any())

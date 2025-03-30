@@ -95,9 +95,9 @@
         </a>
         <nav id="menu" class="max-tablet:hidden">
             <ul class="flex gap-5 text-xl dark:text-white">
-                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ route('index') }}">Главная</a></li>
-                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ route('catalog') }}">Каталог</a></li>
-                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ route('aboutUs') }}">О Сервисе</a></li>
+                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ secure_url('index') }}">Главная</a></li>
+                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ secure_url('catalog') }}">Каталог</a></li>
+                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ secure_url('aboutUs') }}">О Сервисе</a></li>
             </ul>
         </nav>
         <div class="buttons flex gap-[15px] items-center max-tablet:hidden">
@@ -107,15 +107,15 @@
                 </svg>
             </button>
             @if(\Illuminate\Support\Facades\Auth::user())
-                <a href="{{ route('profile', auth()->user()->login) }}"><x-button text="Профиль" /></a>
-                <form class="mb-0 !important" method="POST" action="{{ route('auth') }}">
+                <a href="{{ secure_url('profile', auth()->user()->login) }}"><x-button text="Профиль" /></a>
+                <form class="mb-0 !important" method="POST" action="{{ secure_url('auth') }}">
                     @csrf
                     @method('DELETE')
                     <a type="submit"><x-button text="Выйти" /></a>
                 </form>
             @else
-                <a href="{{ route('auth') }}"><x-button text="Войти" /></a>
-                <a href="{{ route('register') }}"><x-button text="Зарегистрироваться" /></a>
+                <a href="{{ secure_url('auth') }}"><x-button text="Войти" /></a>
+                <a href="{{ secure_url('register') }}"><x-button text="Зарегистрироваться" /></a>
             @endif
         </div>
         <button onclick="openBurgerMenu()" id="burgerButton" class="hidden max-tablet:inline-block">
@@ -152,22 +152,22 @@
                 </svg>
             </button>
             @if(\Illuminate\Support\Facades\Auth::user())
-                <a href="{{ route('profile', auth()->user()->login) }}"><x-button text="Профиль" /></a>
-                <form class="mb-0 !important" method="POST" action="{{ route('auth') }}">
+                <a href="{{ secure_url('profile', auth()->user()->login) }}"><x-button text="Профиль" /></a>
+                <form class="mb-0 !important" method="POST" action="{{ secure_url('auth') }}">
                     @csrf
                     @method('DELETE')
                     <a type="submit"><x-button text="Выйти" /></a>
                 </form>
             @else
-                <a href="{{ route('auth') }}"><x-button text="Войти" /></a>
-                <a href="{{ route('register') }}"><x-button text="Зарегистрироваться" /></a>
+                <a href="{{ secure_url('auth') }}"><x-button text="Войти" /></a>
+                <a href="{{ secure_url('register') }}"><x-button text="Зарегистрироваться" /></a>
             @endif
         </div>
         <nav id="menu" class="">
             <ul class="flex flex-col items-center gap-5 text-xl dark:text-white">
-                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ route('index') }}">Главная</a></li>
-                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ route('catalog') }}">Каталог</a></li>
-                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ route('aboutUs') }}">О Сервисе</a></li>
+                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ secure_url('index') }}">Главная</a></li>
+                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ secure_url('catalog') }}">Каталог</a></li>
+                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ secure_url('aboutUs') }}">О Сервисе</a></li>
             </ul>
         </nav>
     </div>
@@ -177,9 +177,9 @@
     <footer class="pt-10 w-[95%] border-t-[1px] border-solid border-black mt-14 flex flex-col items-center justify-center pb-[25px] dark:border-white">
         <nav>
             <ul class="flex gap-5 text-xl dark:text-white">
-                <li><a href="{{ route('index') }}">Главная</a></li>
-                <li><a href="{{ route('catalog') }}">Каталог</a></li>
-                <li><a href="{{ route('aboutUs') }}">О Сервисе</a></li>
+                <li><a href="{{ secure_url('index') }}">Главная</a></li>
+                <li><a href="{{ secure_url('catalog') }}">Каталог</a></li>
+                <li><a href="{{ secure_url('aboutUs') }}">О Сервисе</a></li>
             </ul>
         </nav>
         <div class="footer-logo-and-name flex flex-col items-center justify-center mt-10">

@@ -3,7 +3,7 @@
 @section('content')
     <div class="search-block w-3/4 mb-14">
         <div class="forms flex items-center gap-5 max-tablet:flex-col">
-            <form class="relative w-full" action="{{ route('catalog') }}">
+            <form class="relative w-full" action="{{ secure_url('catalog') }}">
                 @csrf
                 <input name="categ" class="hidden" value="@if(!empty($categ)){{ $categ }}@endif">
                 <input name="filename" type="text" class="w-full border-[1px] border-solid
@@ -11,7 +11,7 @@
                 <input type="submit" value="Поиск" class="h-full absolute right-0 text-white
                  bg-black rounded-r-lg px-5 cursor-pointer border-solid border-[1px] border-black dark:border-white">
             </form>
-            <form class="rounded-lg border-black border-[1px] dark:border-white dark:bg-black dark:text-white" action="{{ route('catalog') }}">
+            <form class="rounded-lg border-black border-[1px] dark:border-white dark:bg-black dark:text-white" action="{{ secure_url('catalog') }}">
                 @csrf
                 <input name="filename" class="hidden" value="@if(!empty($filename)){{ $filename }}@endif">
                 <select name="categ" onchange="this.form.submit()" class="py-[13px] px-[15px] rounded-lg dark:bg-black">
@@ -27,7 +27,7 @@
         <div class="requests mt-2 flex gap-2">
             @if(!empty($filename))
                 <div class="last flex gap-1 rounded-lg px-2 py-1 border-black border-[1px] dark:border-white dark:text-white">
-                    <form method="GET" action="{{ route('searchClear') }}">
+                    <form method="GET" action="{{ secure_url('searchClear') }}">
                         <input name="categ" class="hidden" value="@if(!empty($categ)){{ $categ }}@endif">
                         <input name="filename" class="hidden" value="@if(!empty($filename)){{ $filename }}@endif">
                         <input name="clear_filename" class="hidden" value="true">
@@ -38,7 +38,7 @@
             @endif
             @if(!empty($categ))
                 <div class="last flex gap-1 items-center">
-                    <form class="rounded-lg px-2 py-1 border-black border-[1px] dark:border-white dark:text-white" method="GET" action="{{ route('searchClear') }}">
+                    <form class="rounded-lg px-2 py-1 border-black border-[1px] dark:border-white dark:text-white" method="GET" action="{{ secure_url('searchClear') }}">
                         <input name="categ" class="hidden" value="@if(!empty($categ)){{ $categ }}@endif">
                         <input name="filename" class="hidden" value="@if(!empty($filename)){{ $filename }}@endif">
                         <input name="clear_categ" class="hidden" value="true">
@@ -49,7 +49,7 @@
                         </span>
                         <button class="cursor-pointer" type="submit">&times;</button>
                     </form>
-                    <form class="ml-5 text-black dark:text-white" action="{{ route('searchClear') }}">
+                    <form class="ml-5 text-black dark:text-white" action="{{ secure_url('searchClear') }}">
                         <input name="categ" class="hidden" value="@if(!empty($categ)){{ $categ }}@endif">
                         <input name="filename" class="hidden" value="@if(!empty($filename)){{ $filename }}@endif">
                         <input name="clear_all" class="hidden" value="true">
@@ -73,7 +73,7 @@
                     <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black
                     rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white
                     dark:hover:bg-white dark:hover:text-black"
-                       href="{{ route('downloadFile', $file->id) }}">Скачать</a>
+                       href="{{ secure_url('downloadFile', $file->id) }}">Скачать</a>
                 </div>
             </div>
         @empty

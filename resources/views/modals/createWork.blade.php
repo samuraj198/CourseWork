@@ -1,5 +1,5 @@
 <div id="modalWork" class="modal z-50 hidden w-full h-full bg-black/80 fixed left-0 top-0 flex justify-center items-start">
-    <form method="POST" action="{{ route('createWork') }}" class="rounded-lg border-black border-[1px] relative flex flex-col items-center gap-5 bg-white p-10 w-1/3 mt-10
+    <form method="POST" action="{{ secure_url('createWork') }}" class="rounded-lg border-black border-[1px] relative flex flex-col items-center gap-5 bg-white p-10 w-1/3 mt-10
     dark:border-white dark:bg-black max-laptopL:w-[50%] max-tablet:w-[60%] max-mobileL:w-[80%] max-mobileL:gap-2" enctype="multipart/form-data">
         @csrf
         <a onclick="closeWorkModal()" class="absolute right-5 top-2 text-4xl cursor-pointer dark:text-white">&times;</a>

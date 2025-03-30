@@ -31,7 +31,7 @@
             </p>
         </div>
     </div>
-    <a class="mt-[50px]" href="{{ route('register') }}"><x-button text="Зарегистрироваться"  /></a>
+    <a class="mt-[50px]" href="{{ secure_url('register') }}"><x-button text="Зарегистрироваться"  /></a>
 @endsection
 <script>
     @section('js')

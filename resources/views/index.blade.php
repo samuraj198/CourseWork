@@ -12,7 +12,7 @@
         @endforelse
     </style>
     <div class="search-block w-3/4 mb-16">
-        <form class="relative w-full" action="{{ route('catalog') }}">
+        <form class="relative w-full" action="{{ secure_url('catalog') }}">
             @csrf
             <input name="filename" type="text" class="w-full border-[1px] border-solid border-black rounded-lg py-[13px] pl-[15px] pr-[100px] dark:border-white dark:bg-black dark:text-white" placeholder="Введите название 3d-модели">
             <input type="submit" value="Поиск" class="h-full absolute right-0 text-white bg-black rounded-r-lg px-5 cursor-pointer border-solid border-[1px] border-black dark:border-white">
@@ -22,10 +22,10 @@
         <h2 class="text-2xl font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">ПОПУЛЯРНЫЕ КАТЕГОРИИ</h2>
         <div class="blocks w-full max-w-[1600px] min-h-[200px] flex flex-wrap justify-center gap-5">
             @forelse($categories as $category)
-                <div id="card-{{$category->id}}" class="block rounded-lg border-black border-solid border-[1px] w-[250px] 
-                h-[200px] font-bold text-white text-2xl flex items-center justify-center dark:border-[1px] dark:border-white 
+                <div id="card-{{$category->id}}" class="block rounded-lg border-black border-solid border-[1px] w-[250px]
+                h-[200px] font-bold text-white text-2xl flex items-center justify-center dark:border-[1px] dark:border-white
                 hover:scale-105 transition-all duration-300">
-                    <form class="w-full h-full" action="{{ route('catalog') }}">
+                    <form class="w-full h-full" action="{{ secure_url('catalog') }}">
                         @csrf
                         <input class="hidden" name="categ" value="{{ $category->id }}">
                         <button class="w-full h-full" type="submit">{{ $category->name }}</button>
@@ -44,18 +44,18 @@
                     <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="storage/files_previews/{{$work->img}}" alt="">
                     <p class="text-center dark:text-white">{{$work->name}}</p>
                     <p class="text-center dark:text-white">{{$work->information}}</p>
-                    <form action="{{ route('catalog') }}">
+                    <form action="{{ secure_url('catalog') }}">
                         @csrf
                         <input class="hidden" name="categ" value="{{ $work->category->id }}">
                         <input type="submit" class="text-center cursor-pointer underline dark:text-white" value="{{$work->category->name}}">
                     </form>
-                    <a class="underline dark:text-white" href="{{ route('profile', $work->user->login) }}">{{ $work->user->login }}</a>
+                    <a class="underline dark:text-white" href="{{ secure_url('profile', $work->user->login) }}">{{ $work->user->login }}</a>
                     <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black" href="{{ route('downloadFile', $work->id) }}">Скачать</a>
                 </div>
             @empty
                 <p class="dark:text-white">Нет работ</p>
             @endforelse
         </div>
-        <a href="{{ route('catalog') }}"><x-button text="Перейти в каталог" /></a>
+        <a href="{{ secure_url('catalog') }}"><x-button text="Перейти в каталог" /></a>
     </div>
 @endsection
