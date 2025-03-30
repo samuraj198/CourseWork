@@ -1,5 +1,5 @@
 <div id="modalCategory" class="modal z-50 hidden w-full h-full bg-black/80 fixed left-0 top-0 flex justify-center items-start">
-    <form method="POST" action="{{ secure_url('createCategory') }}" class="rounded-lg border-[1px] border-black relative
+    <form method="POST" action="{{ secure_url(route('createCategory')) }}" class="rounded-lg border-[1px] border-black relative
     flex flex-col items-center gap-5 bg-white p-10 w-1/3 mt-10 dark:bg-black dark:border-white max-laptopL:w-[50%]
     max-tablet:w-[80%]"
           enctype="multipart/form-data">

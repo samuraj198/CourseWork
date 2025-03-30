@@ -1,5 +1,5 @@
 <div id="modalChangeCategory" class="modal z-50 hidden w-full h-full bg-black/80 fixed left-0 top-0 flex justify-center items-start">
-    <form method="POST" action="{{ secure_url('changeCategory') }}" class="rounded-lg border-[1px] border-black relative flex flex-col items-center gap-5 bg-white p-10 w-1/3 mt-10 dark:bg-black dark:border-white max-laptopL:w-[50%] max-tablet:w-[80%]"
+    <form method="POST" action="{{ secure_url(route('changeCategory')) }}" class="rounded-lg border-[1px] border-black relative flex flex-col items-center gap-5 bg-white p-10 w-1/3 mt-10 dark:bg-black dark:border-white max-laptopL:w-[50%] max-tablet:w-[80%]"
           enctype="multipart/form-data">
         @csrf
         <a onclick="closeChangeCategoryModal()" class="absolute right-5 top-2 text-4xl cursor-pointer dark:text-white">&times;</a>

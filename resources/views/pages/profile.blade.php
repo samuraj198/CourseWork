@@ -75,7 +75,7 @@
                                        onclick="changeWorkModal({{ $work->id }}, '{{ $work->img }}', '{{ $work->name }}', '{{ $work->category_id }}', '{{ $work->information }}', '{{ $work->file }}')"><img
                                             class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
                                             src="img/icons/settings.svg" alt=""></a>
-                                    <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url('deleteFile') }}">
+                                    <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
                                         @csrf
                                         @method('DELETE')
                                         <input class="hidden" name="id" type="text" value="{{ $work->id }}">
@@ -92,7 +92,7 @@
                             <p class="text-center dark:text-white">{{$work->information}}</p>
                             <p class="text-center dark:text-white">{{$work->category->name}}</p>
                             <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
-                               href="{{ secure_url('downloadFile', $work->id) }}">Скачать</a>
+                               href="{{ secure_url(route('downloadFile', $work->id)) }}">Скачать</a>
                         </div>
                     </div>
                 @empty
@@ -111,7 +111,7 @@
                                        onclick="changeWorkModal({{ $work->id }}, '{{ $work->img }}', '{{ $work->name }}', '{{ $work->category_id }}', '{{ $work->information }}', '{{ $work->file }}')"><img
                                             class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
                                             src="img/icons/settings.svg" alt=""></a>
-                                    <form class="h-[20px] w-[20px]" method="POST" action="{{ route('deleteFile') }}">
+                                    <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
                                         @csrf
                                         @method('DELETE')
                                         <input class="hidden" name="id" type="text" value="{{ $work->id }}">
@@ -128,9 +128,9 @@
                             <p class="text-center dark:text-white">{{$work->file->information}}</p>
                             <p class="text-center dark:text-white">{{$work->file->category->name}}</p>
                             <a class="underline dark:text-white"
-                               href="{{ secure_url('profile', $work->file->user->login) }}">{{ $work->file->user->login }}</a>
+                               href="{{ secure_url(route('profile', $work->file->user->login)) }}">{{ $work->file->user->login }}</a>
                             <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
-                               href="{{ secure_url('downloadFile', $work->file->id) }}">Скачать</a>
+                               href="{{ secure_url(route('downloadFile', $work->file->id)) }}">Скачать</a>
                         </div>
                     </div>
                 @empty

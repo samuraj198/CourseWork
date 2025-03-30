@@ -76,7 +76,7 @@
 </div>
 <body class="flex flex-col items-center dark:bg-black">
     <header class="mb-20 mt-[50px] flex justify-between items-center w-[95%]">
-        <a href="{{ route('index') }}">
+        <a href="{{ secure_url(route('index')) }}">
             <div class="logo-and-name flex items-center gap-2">
                 <div class="logo">
                     <svg width="100" height="63" viewBox="0 0 100 63" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,9 +95,9 @@
         </a>
         <nav id="menu" class="max-tablet:hidden">
             <ul class="flex gap-5 text-xl dark:text-white">
-                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ secure_url('index') }}">Главная</a></li>
-                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ secure_url('catalog') }}">Каталог</a></li>
-                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ secure_url('aboutUs') }}">О Сервисе</a></li>
+                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ secure_url(route('index')) }}">Главная</a></li>
+                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ secure_url(route('catalog')) }}">Каталог</a></li>
+                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ secure_url(route('aboutUs')) }}">О Сервисе</a></li>
             </ul>
         </nav>
         <div class="buttons flex gap-[15px] items-center max-tablet:hidden">
@@ -159,15 +159,15 @@
                     <a type="submit"><x-button text="Выйти" /></a>
                 </form>
             @else
-                <a href="{{ secure_url('auth') }}"><x-button text="Войти" /></a>
-                <a href="{{ secure_url('register') }}"><x-button text="Зарегистрироваться" /></a>
+                <a href="{{ secure_url(route('auth')) }}"><x-button text="Войти" /></a>
+                <a href="{{ secure_url(route('register')) }}"><x-button text="Зарегистрироваться" /></a>
             @endif
         </div>
         <nav id="menu" class="">
             <ul class="flex flex-col items-center gap-5 text-xl dark:text-white">
-                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ secure_url('index') }}">Главная</a></li>
-                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ secure_url('catalog') }}">Каталог</a></li>
-                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ secure_url('aboutUs') }}">О Сервисе</a></li>
+                <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ secure_url(route('index')) }}">Главная</a></li>
+                <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ secure_url(route('catalog')) }}">Каталог</a></li>
+                <li class="{{ request()->routeIs('aboutUs') ? 'underline' : '' }}"><a href="{{ secure_url(route('aboutUs')) }}">О Сервисе</a></li>
             </ul>
         </nav>
     </div>
@@ -177,9 +177,9 @@
     <footer class="pt-10 w-[95%] border-t-[1px] border-solid border-black mt-14 flex flex-col items-center justify-center pb-[25px] dark:border-white">
         <nav>
             <ul class="flex gap-5 text-xl dark:text-white">
-                <li><a href="{{ secure_url('index') }}">Главная</a></li>
-                <li><a href="{{ secure_url('catalog') }}">Каталог</a></li>
-                <li><a href="{{ secure_url('aboutUs') }}">О Сервисе</a></li>
+                <li><a href="{{ secure_url(route('index')) }}">Главная</a></li>
+                <li><a href="{{ secure_url(route('catalog')) }}">Каталог</a></li>
+                <li><a href="{{ secure_url(route('aboutUs')) }}">О Сервисе</a></li>
             </ul>
         </nav>
         <div class="footer-logo-and-name flex flex-col items-center justify-center mt-10">
