@@ -41,7 +41,7 @@
         <div class="blocks flex flex-wrap justify-center gap-5 max-w-[1600px] mb-10">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg flex flex-col items-center dark:border-[1px] dark:border-white">
-                    <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="storage/files_previews/{{$work->img}}" alt="">
+                    <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white" src="{{ secure_asset('storage/files_previews/' . $work->img) }}" alt="">
                     <p class="text-center dark:text-white">{{$work->name}}</p>
                     <p class="text-center dark:text-white">{{$work->information}}</p>
                     <form action="{{ secure_url(route('catalog')) }}">

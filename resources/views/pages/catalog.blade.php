@@ -65,7 +65,7 @@
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg flex flex-col items-center
                 dark:border-[1px] dark:border-white">
                     <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
-                    src="storage/files_previews/{{$file->img}}" alt="">
+                    src="{{secure_asset('storage/files_previews/' . $file->img)}}" alt="">
                     <p class="text-center dark:text-white">{{$file->name}}</p>
                     <p class="text-center dark:text-white">{{$file->information}}</p>
                     <p class="text-center dark:text-white">{{$file->category->name}}</p>

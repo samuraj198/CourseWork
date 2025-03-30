@@ -15,7 +15,7 @@
                 </svg>
             </div>
         @else
-            <img class="w-[120px] h-[120px] rounded-full object-cover" src="/storage/avatars/{{$user->ava}}" alt="">
+            <img class="w-[120px] h-[120px] rounded-full object-cover" src="{{ secure_asset('/storage/avatars/' . $user->ava) }}" alt="">
         @endif
 
         <h2 class="text-2xl">{{ $user->login }}
@@ -123,7 +123,7 @@
                             @endif
                             <img
                                 class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
-                                src="storage/files_previews/{{$work->file->img}}" alt="">
+                                src="{{ secure_asset('storage/files_previews/' . $work->file->img) }}" alt="">
                             <p class="text-center dark:text-white">{{$work->file->name}}</p>
                             <p class="text-center dark:text-white">{{$work->file->information}}</p>
                             <p class="text-center dark:text-white">{{$work->file->category->name}}</p>

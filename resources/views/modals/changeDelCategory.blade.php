@@ -7,7 +7,7 @@
         <select name="category_id" id="categorySelect" class="w-full border-black border-solid border-[1px] py-[13px] px-[15px] rounded-lg dark:bg-black dark:border-white dark:text-white" onchange="showCategoryDetails()">
             <option disabled selected hidden>Выберите категорию для взаимодействия</option>
             @forelse($categories as $category)
-                <option value="{{ $category->id }}" data-name="{{ $category->name }}" data-img="{{ asset('storage/categories/' . $category->img) }}">
+                <option value="{{ $category->id }}" data-name="{{ $category->name }}" data-img="{{ secure_asset('storage/categories/' . $category->img) }}">
                     {{ $category->name }}
                 </option>
             @empty
