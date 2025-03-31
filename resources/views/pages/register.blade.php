@@ -22,23 +22,27 @@
             </button>
         </div>
         <div class="loginBlock flex flex-col items-center w-full">
-            <input id="loginInput" name="login" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
+            <input id="loginInput" name="login" class="w-1/3 border-black border-solid border-[1px] py-[13px]
+             pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
                    type="text" placeholder="Введите логин">
             <p class="hidden text-red-500 mt-2" id="loginError"></p>
         </div>
         <div class="emailBlock flex flex-col items-center w-full">
-            <input id="emailInput" name="email" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
+            <input id="emailInput" name="email" class="w-1/3 border-black border-solid border-[1px] py-[13px]
+             pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
                    type="email" placeholder="Введите почту">
             <p class="hidden text-red-500 mt-2" id="emailError"></p>
         </div>
         <div class="passwordError flex flex-col items-center w-full">
-            <input id="passwordInput" name="password" class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
+            <input id="passwordInput" name="password" class="w-1/3 border-black border-solid border-[1px] py-[13px]
+             pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white"
                    type="password" placeholder="Введите пароль">
             <p class="hidden text-red-500 mt-2" id="passwordError"></p>
         </div>
         <div class="confError flex flex-col items-center w-full">
             <input id="confInput" name="password_confirmation"
-                   class="w-1/3 border-black border-solid border-[1px] py-[13px] pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="password"
+                   class="w-1/3 border-black border-solid border-[1px] py-[13px]
+             pl-[15px] rounded-lg dark:border-white dark:bg-black dark:text-white" type="password"
                    placeholder="Повторите пароль">
             <p class="hidden text-red-500 mt-2" id="confError"></p>
         </div>
