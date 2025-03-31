@@ -59,12 +59,15 @@
             animation: slideIn 0.5s ease-out, fadeOut 0.5s ease-out 4.5s;
         }
 
+        @if (isset($categories))
         @foreach($categories as $category)
             #card-{{$category->id}} {
             background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)) ,url("storage/categories/{{$category->img}}");
             background-size: cover;
         }
         @endforeach
+        @endif
+
     </style>
     <title>@yield('title')</title>
 </head>
