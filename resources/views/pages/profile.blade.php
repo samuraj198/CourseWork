@@ -108,7 +108,7 @@
                                 <div
                                     class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                     <a class="cursor-pointer w-[20px] h-[20px]"
-                                       onclick="changeWorkModal({{ $work->id }}, '{{ addslashes($work->img) }}', '{{ addslashes($work->name) }}', '{{ $work->category_id }}', '{{ addslashes($work->information) }}', '{{ addslashes($work->file) }}')"><img
+                                       onclick="changeWorkModal({{ $work->file->id }}, '{{ addslashes($work->file->img) }}', '{{ addslashes($work->file->name) }}', '{{ $work->file->category_id }}', '{{ addslashes($work->file->information) }}', '{{ addslashes($work->file->file) }}')"><img
                                             class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
                                             src="img/icons/settings.svg" alt=""></a>
                                     <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
@@ -123,7 +123,7 @@
                             @endif
                             <img
                                 class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
-                                src="{{ secure_asset('storage/files_previews/' . $work->img) }}" alt="">
+                                src="{{ secure_asset('storage/files_previews/' . $work->file->img) }}" alt="">
                             <p class="text-center dark:text-white">{{$work->file->name}}</p>
                             <p class="text-center dark:text-white">{{$work->file->information}}</p>
                             <p class="text-center dark:text-white">{{$work->file->category->name}}</p>
