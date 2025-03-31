@@ -12,7 +12,8 @@ class Category extends Model
         'name',
         'img'
     ];
-     public function store(){
-      return $this->hasMany(File::class, 'category_id');
-     }
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
 }

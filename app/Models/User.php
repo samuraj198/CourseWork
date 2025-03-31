@@ -24,13 +24,14 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function store(){
-        return $this->hasMany(File::class, 'user_id');
+    public function files()
+    {
+        return $this->hasMany(File::class);
     }
 
-    public function downloadHistory()
+    public function history()
     {
-        return $this->hasMany(History::class, 'user_id');
+        return $this->hasMany(History::class);
     }
 
     public function hasRole($role)

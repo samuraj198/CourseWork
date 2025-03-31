@@ -14,10 +14,13 @@ class History extends Model
     ];
     protected $table = 'downloadHistory';
 
-    public function file() {
-        return $this->belongsTo(File::class, 'file_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id');
+
+    public function file()
+    {
+        return $this->belongsTo(File::class);
     }
 }

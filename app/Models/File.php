@@ -17,13 +17,18 @@ class File extends Model
         'file'
     ];
 
-    public function category(){
-        return $this->belongsTo(Category::class, 'category_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id');
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
-    public function downloadHistory(){
-        return $this->belongsTo(History::class, 'file_id');
+
+    public function history()
+    {
+        return $this->hasMany(History::class);
     }
 }
