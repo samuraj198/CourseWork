@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <style>
@@ -62,6 +62,19 @@
     <title>@yield('title')</title>
 </head>
 <body class="flex flex-col items-center dark:bg-black">
+    <div class="notifs-case absolute top-0 left-0 w-full z-50 flex">
+        @if(session('success'))
+            <div class="success fixed max-w-96 hidden border-black border-[1px] bg-white text-black px-5 py-3 rounded-lg bottom-5 right-5 z-50 dark:text-white dark:bg-black dark:border-white">
+                <p class="break-words">{{ session('success') }}</p>
+            </div>
+        @elseif($errors->any())
+            <div class="error fixed hidden max-w-96 border-black border-[1px] bg-white text-black px-5 py-3 rounded-lg bottom-5 right-5 z-50 dark:text-white dark:bg-black dark:border-white">
+                @foreach($errors->all() as $error)
+                    <p class="break-words">{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
+    </div>
     <header class="mb-20 mt-[50px] flex justify-between items-center w-[95%]">
         <a href="{{ secure_url(route('index')) }}">
             <div class="logo-and-name flex items-center gap-2">
@@ -187,20 +200,6 @@
         </div>
     </footer>
 </body>
-<div class="notifs-case absolute top-0 left-0 w-full z-50 flex">
-    @if(session('success'))
-        <div class="success fixed max-w-96 hidden border-black border-[1px] bg-white text-black px-5 py-3 rounded-lg bottom-5 right-5 z-50 dark:text-white dark:bg-black dark:border-white">
-            <p class="break-words">{{ session('success') }}</p>
-        </div>
-    @elseif($errors->any())
-        <div class="error fixed hidden max-w-96 border-black border-[1px] bg-white text-black px-5 py-3 rounded-lg bottom-5 right-5 z-50 dark:text-white dark:bg-black dark:border-white">
-            @foreach($errors->all() as $error)
-                <p class="break-words">{{ $error }}</p>
-            @endforeach
-        </div>
-    @endif
-</div>
-</html>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const success = document.querySelector('.success');
@@ -255,3 +254,4 @@
 
     @yield('js')
 </script>
+</html>
