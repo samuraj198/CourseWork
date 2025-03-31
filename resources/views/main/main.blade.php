@@ -107,15 +107,15 @@
                 </svg>
             </button>
             @if(\Illuminate\Support\Facades\Auth::user())
-                <a href="{{ secure_url(route('profile', auth()->user()->login)) }}"><x-button text="Профиль" /></a>
+                <x-button href="{{ secure_url(route('profile', auth()->user()->login)) }}" text="Профиль" />
                 <form class="mb-0 !important" method="POST" action="{{ secure_url(route('auth')) }}">
                     @csrf
                     @method('DELETE')
-                    <a type="submit"><x-button text="Выйти" /></a>
+                    <x-button type="submit" text="Выйти" />
                 </form>
             @else
-                <a href="{{ secure_url(route('auth')) }}"><x-button text="Войти" /></a>
-                <a href="{{ secure_url(route('register')) }}"><x-button text="Зарегистрироваться" /></a>
+                <x-button href="{{ secure_url(route('auth')) }}" text="Войти" />
+                <x-button href="{{ secure_url(route('register')) }}" text="Зарегистрироваться" />
             @endif
         </div>
         <button onclick="openBurgerMenu()" id="burgerButton" class="hidden max-tablet:inline-block">
@@ -152,15 +152,15 @@
                 </svg>
             </button>
             @if(\Illuminate\Support\Facades\Auth::user())
-                <a href="{{ secure_url(route('profile', auth()->user()->login)) }}"><x-button text="Профиль" /></a>
+                <x-button href="{{ secure_url(route('profile', auth()->user()->login)) }}" text="Профиль" />
                 <form class="mb-0 !important" method="POST" action="{{ secure_url(route('auth')) }}">
                     @csrf
                     @method('DELETE')
-                    <a type="submit"><x-button text="Выйти" /></a>
+                    <x-button type="submit" text="Выйти" />
                 </form>
             @else
-                <a href="{{ secure_url(route('auth')) }}"><x-button text="Войти" /></a>
-                <a href="{{ secure_url(route('register')) }}"><x-button text="Зарегистрироваться" /></a>
+                <x-button href="{{ secure_url(route('auth')) }}" text="Войти" />
+                <x-button href="{{ secure_url(route('register')) }}" text="Зарегистрироваться" />
             @endif
         </div>
         <nav id="menu" class="">

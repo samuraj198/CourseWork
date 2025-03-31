@@ -13,10 +13,16 @@ class Button extends Component
      */
     public $text;
     public $id;
-    public function __construct($text = 'Button', $id = null)
+    public $href;
+    public $onclick;
+    public $type;
+    public function __construct($text = 'Button', $id = null, $href = null, $onclick = null, $type = null)
     {
         $this->text = $text;
         $this->id = $id;
+        $this->href = $href;
+        $this->onclick = $onclick;
+        $this->type = $type;
     }
 
     /**

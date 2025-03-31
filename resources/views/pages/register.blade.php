@@ -42,9 +42,7 @@
                    placeholder="Повторите пароль">
             <p class="hidden text-red-500 mt-2" id="confError"></p>
         </div>
-        <a type="submit">
-            <x-button id="regButton" text="Зарегистрироваться"/>
-        </a>
+        <x-button type="submit" id="regButton" text="Зарегистрироваться"/>
     </form>
     <p class="dark:text-white">Уже есть аккаунт? <a href="{{ secure_url(route('auth')) }}"
                             class="underline decoration-solid hover:text-blue-500 transition-all duration-300">Войти</a>

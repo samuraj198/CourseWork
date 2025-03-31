@@ -36,11 +36,11 @@
         border-black border-solid border-[1px] py-[13px] px-[15px] rounded-lg dark:bg-black
         dark:border-white dark:text-white max-laptopL:min-h-[100px]"
                   type="password" placeholder="Описание модели"></textarea>
-        <div id="fileBlock" class="flex flex-col items-center gap-2">
+        <div id="fileBlock" class="flex flex-col items-center gap-2 mb-5 max-mobileL:mb-1">
             <input class="dark:text-white w-[250px]" name="file" type="file">
             <label for="file" class="text-sm text-black/50 dark:text-white/50">*Загружайте только архивы</label>
         </div>
-        <a type="submit" class="mt-5 max-mobileL:mt-1"><x-button text="Опубликовать" /></a>
+        <x-button type="submit" text="Опубликовать" />
     </form>
 </div>
 

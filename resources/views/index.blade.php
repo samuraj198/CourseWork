@@ -58,6 +58,6 @@
                 <p class="dark:text-white">Нет работ</p>
             @endforelse
         </div>
-        <a href="{{ secure_url(route('catalog')) }}"><x-button text="Перейти в каталог" /></a>
+        <x-button href="{{ secure_url(route('catalog')) }}" text="Перейти в каталог" />
     </div>
 @endsection

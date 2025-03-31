@@ -31,8 +31,8 @@
         <input id="categoryName" name="name" class="w-full hidden border-black border-solid border-[1px] py-[13px] px-[15px] rounded-lg dark:bg-black dark:border-white dark:text-white" type="text" placeholder="Название категории">
         <div class="flex gap-2">
             <input type="hidden" name="action" id="actionField" value="">
-            <a onclick="setAction('change')" class="mt-5"><x-button text="Изменить" /></a>
-            <a onclick="setAction('delete')" class="mt-5"><x-button text="Удалить" /></a>
+            <x-button onclick="setAction('change')" class="mt-5" text="Изменить" />
+            <x-button onclick="setAction('delete')" class="mt-5" text="Удалить" />
         </div>
         @if($errors->any())
             <div class="error text-red-500 mt-10">

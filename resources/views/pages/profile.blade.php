@@ -34,14 +34,14 @@
         </span></h2>
         @if(auth()->check() && $user->id == auth()->user()->id)
             @if($user->hasRole('User'))
-                <a onclick="openWorkModal()"><x-button text="Загрузить работу"/></a>
+                <x-button onclick="openWorkModal()" text="Загрузить работу"/>
             @elseif($user->hasRole('Admin'))
                 @include('modals/createCategory')
                 @include('modals/changeDelCategory')
                 <div class="btns flex items-center justify-center gap-5 max-mobileL:flex-col max-mobileL:gap-2">
-                    <a onclick="openWorkModal()"><x-button text="Загрузить работу"/></a>
-                    <a onclick="openCategoryModal()"><x-button text="Создать категорию"/></a>
-                    <a onclick="openChangeCategoryModal()"><x-button text="Изменить категории"/></a>
+                    <x-button onclick="openWorkModal()" text="Загрузить работу"/>
+                    <x-button onclick="openCategoryModal()" text="Создать категорию"/>
+                    <x-button onclick="openChangeCategoryModal()" text="Изменить категории"/>
                 </div>
             @endif
         @endif

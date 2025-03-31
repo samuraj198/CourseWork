@@ -23,8 +23,8 @@
             </div>
             <button id="cancelButton" type="button" class="hidden mt-2 bg-red-500 text-white px-4 py-1 rounded">Отменить</button>
         </div>
-        <input name="name" class="w-full border-black border-solid border-[1px] py-[13px] px-[15px] rounded-lg dark:bg-black dark:border-white dark:text-white" type="text" placeholder="Название категории">
-        <a type="submit" class="mt-5"><x-button text="Создать" /></a>
+        <input name="name" class="mb-5 w-full border-black border-solid border-[1px] py-[13px] px-[15px] rounded-lg dark:bg-black dark:border-white dark:text-white" type="text" placeholder="Название категории">
+        <x-button type="submit" text="Создать" />
     </form>
 </div>
 <script>

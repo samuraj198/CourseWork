@@ -2,7 +2,7 @@
 @section('title', 'About Us')
 @section('content')
     <h2 class="text-2xl font-bold mb-5 dark:text-white">О СЕРВИСЕ</h2>
-    <div class="text-and-logo flex items-center justify-center gap-10 max-tablet:flex-col-reverse">
+    <div class="text-and-logo flex items-center justify-center gap-10 mb-[50px] max-tablet:flex-col-reverse">
         <div class="logo">
             <svg width="300" height="177" viewBox="0 0 100 63" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path class="stroke-black dark:stroke-white" d="M82.2223 43.9117C82.2223 48.4396 81.3151 51.5395 79.8985 53.7157C78.4978 55.8673 76.4421 57.3572 73.6777 58.3896C70.8701 59.4382 67.4095 59.9837 63.3512 60.2511C59.5447 60.5019 55.3689 60.5009 50.8774 60.4998C50.5863 60.4998 50.2938 60.4997 50.0001 60.4997C49.7063 60.4997 49.4138 60.4998 49.1227 60.4998C44.6312 60.5009 40.4554 60.5019 36.6489 60.2511C32.5906 59.9837 29.1301 59.4382 26.3224 58.3896C23.558 57.3572 21.5023 55.8673 20.1016 53.7157C18.685 51.5395 17.7778 48.4396 17.7778 43.9117C17.7778 25.8622 32.2317 11.2803 50.0001 11.2803C67.7684 11.2803 82.2223 25.8622 82.2223 43.9117Z" stroke="black" stroke-width="5"/>
@@ -31,7 +31,7 @@
             </p>
         </div>
     </div>
-    <a class="mt-[50px]" href="{{ secure_url(route('register')) }}"><x-button text="Зарегистрироваться"  /></a>
+    <x-button href="{{ secure_url(route('register')) }}" text="Зарегистрироваться"  />
 @endsection
 <script>
     @section('js')

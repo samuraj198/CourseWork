@@ -16,7 +16,7 @@
                    type="password" placeholder="Введите пароль" required autocomplete="current-password">
             <p class="hidden text-red-500 mt-2" id="passwordError"></p>
         </div>
-        <a type="submit"><x-button id="loginButton" text="Войти" /></a>
+        <x-button type="submit" id="loginButton" text="Войти" />
     </form>
     <p class="dark:text-white">Нет аккаунта? <a href="{{ secure_url(route('register')) }}" class="underline decoration-solid hover:text-blue-500 transition-all duration-300">Зарегистрироваться</a></p>
     @if($errors->any())
