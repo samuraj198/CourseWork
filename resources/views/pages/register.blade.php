@@ -87,10 +87,17 @@
             emailError.textContent = '';
             passwordError.textContent = '';
             confError.textContent = '';
-            loginInput.style.borderColor = 'white';
-            emailInput.style.borderColor = 'white';
-            passwordInput.style.borderColor = 'white';
-            confInput.style.borderColor = 'white';
+            if (localStorage.getItem('theme') === 'dark') {
+                loginInput.style.borderColor = 'white';
+                emailInput.style.borderColor = 'white';
+                passwordInput.style.borderColor = 'white';
+                confInput.style.borderColor = 'white';
+            } else {
+                loginInput.style.borderColor = 'black';
+                emailInput.style.borderColor = 'black';
+                passwordInput.style.borderColor = 'black';
+                confInput.style.borderColor = 'black';
+            }
 
             if (loginInput.value.trim() === '' || passwordInput.value.trim() === '' || emailInput.value.trim() === '' || confInput.value.trim() === '' ) {
                 valid = false;
