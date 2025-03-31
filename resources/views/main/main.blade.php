@@ -163,7 +163,7 @@
                 <x-button href="{{ secure_url(route('register')) }}" text="Зарегистрироваться" />
             @endif
         </div>
-        <nav id="menu" class="">
+        <nav id="menuBurger" class="">
             <ul class="flex flex-col items-center gap-5 text-xl dark:text-white">
                 <li class="{{ request()->routeIs('index') ? 'underline' : '' }}"><a href="{{ secure_url(route('index')) }}">Главная</a></li>
                 <li class="{{ request()->routeIs('catalog') ? 'underline' : '' }}"><a href="{{ secure_url(route('catalog')) }}">Каталог</a></li>
