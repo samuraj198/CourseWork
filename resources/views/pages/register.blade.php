@@ -105,10 +105,17 @@
                 emailError.textContent = '';
                 passwordError.textContent = '';
                 confError.textContent = '';
-                loginInput.style.borderColor = 'white';
-                emailInput.style.borderColor = 'white';
-                passwordInput.style.borderColor = 'white';
-                confInput.style.borderColor = 'white';
+                if (localStorage.getItem('theme') === 'dark') {
+                    loginInput.style.borderColor = 'white';
+                    emailInput.style.borderColor = 'white';
+                    passwordInput.style.borderColor = 'white';
+                    confInput.style.borderColor = 'white';
+                } else {
+                    loginInput.style.borderColor = 'black';
+                    emailInput.style.borderColor = 'black';
+                    passwordInput.style.borderColor = 'black';
+                    confInput.style.borderColor = 'black';
+                }
                 passwordError.classList.add('hidden');
                 loginError.classList.add('hidden');
                 emailError.classList.add('hidden');
