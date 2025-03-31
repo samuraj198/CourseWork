@@ -1,16 +1,6 @@
 @extends('main/main')
 @section('title', 'Home Page')
 @section('content')
-    <style>
-        @forelse($categories as $category)
-            #card-{{$category->id}} {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)) ,url("storage/categories/{{$category->img}}");
-            background-size: cover;
-        }
-        @empty
-
-        @endforelse
-    </style>
     <div class="search-block w-3/4 mb-16">
         <form class="relative w-full" action="{{ secure_url(route('catalog')) }}">
             @csrf

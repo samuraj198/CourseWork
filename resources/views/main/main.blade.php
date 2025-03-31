@@ -58,6 +58,11 @@
         .error{
             animation: slideIn 0.5s ease-out, fadeOut 0.5s ease-out 4.5s;
         }
+        @forelse($categories as $category)
+            #card-{{$category->id}} {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)) ,url("storage/categories/{{$category->img}}");
+            background-size: cover;
+        }
     </style>
     <title>@yield('title')</title>
 </head>
