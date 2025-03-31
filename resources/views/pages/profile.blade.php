@@ -72,8 +72,7 @@
                                 <div
                                     class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                     <a class="cursor-pointer w-[20px] h-[20px]"
-                                       onclick="changeWorkModal({{ $work->id }}, '{!! json_encode($work->img) !!}', '{!! json_encode($work->name) !!}', '{{ $work->category_id }}', '{!! json_encode($work->information) !!}', '{!! json_encode($work->file) !!}')">
-                                        <img
+                                       onclick="changeWorkModal({{ $work->id }}, '{{ addslashes($work->img) }}', '{{ addslashes($work->name) }}', '{{ $work->category_id }}', '{{ addslashes($work->information) }}', '{{ addslashes($work->file) }}')"><img
                                             class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
                                             src="img/icons/settings.svg" alt=""></a>
                                     <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
@@ -109,8 +108,7 @@
                                 <div
                                     class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                     <a class="cursor-pointer w-[20px] h-[20px]"
-                                       onclick="changeWorkModal({{ $work->id }}, '{!! json_encode($work->img) !!}', '{!! json_encode($work->name) !!}', '{{ $work->category_id }}', '{!! json_encode($work->information) !!}', '{!! json_encode($work->file) !!}')">
-                                        <img
+                                       onclick="changeWorkModal({{ $work->id }}, '{{ addslashes($work->img) }}', '{{ addslashes($work->name) }}', '{{ $work->category_id }}', '{{ addslashes($work->information) }}', '{{ addslashes($work->file) }}')"><img
                                             class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
                                             src="img/icons/settings.svg" alt=""></a>
                                     <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
