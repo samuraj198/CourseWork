@@ -206,59 +206,59 @@
             <p class="text-black/50 font-bold dark:text-white/50">FreeModels 2023-2025</p>
         </div>
     </footer>
-</body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const success = document.querySelector('.success');
-        if (success) {
-            success.classList.remove('hidden');
-            setTimeout(() => {
-                success.classList.add('hidden');
-            }, 5000);
-        }
-        const error = document.querySelector('.error');
-        if (error) {
-            error.classList.remove('hidden');
-            setTimeout(() => {
-                error.classList.add('hidden');
-            }, 5000);
-        }
-    });
-
-    const htmlElement = document.documentElement;
-
-    if (localStorage.getItem('theme') === 'dark') {
-        htmlElement.classList.add('dark');
-    }
-
-    document.querySelectorAll('.themeToggle').forEach(button => {
-        button.addEventListener('click', () => {
-            const htmlElement = document.documentElement;
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const success = document.querySelector('.success');
+            if (success) {
+                success.classList.remove('hidden');
+                setTimeout(() => {
+                    success.classList.add('hidden');
+                }, 5000);
+            }
+            const error = document.querySelector('.error');
+            if (error) {
+                error.classList.remove('hidden');
+                setTimeout(() => {
+                    error.classList.add('hidden');
+                }, 5000);
             }
         });
-    });
 
-    function openBurgerMenu() {
-        document.getElementById('burgerMenu').classList.remove('hidden');
-        document.getElementById('burgerMenu').classList.remove('close');
-        document.getElementById('burgerMenu').classList.add('open');
-    }
+        const htmlElement = document.documentElement;
 
-    function closeBurgerMenu() {
-        document.getElementById('burgerMenu').classList.remove('open');
-        document.getElementById('burgerMenu').classList.add('close');
+        if (localStorage.getItem('theme') === 'dark') {
+            htmlElement.classList.add('dark');
+        }
 
-        setTimeout(() => {
-            document.getElementById('burgerMenu').classList.add('hidden');
-        }, 700);
-    }
+        document.querySelectorAll('.themeToggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const htmlElement = document.documentElement;
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        });
 
-    @yield('js')
-</script>
+        function openBurgerMenu() {
+            document.getElementById('burgerMenu').classList.remove('hidden');
+            document.getElementById('burgerMenu').classList.remove('close');
+            document.getElementById('burgerMenu').classList.add('open');
+        }
+
+        function closeBurgerMenu() {
+            document.getElementById('burgerMenu').classList.remove('open');
+            document.getElementById('burgerMenu').classList.add('close');
+
+            setTimeout(() => {
+                document.getElementById('burgerMenu').classList.add('hidden');
+            }, 700);
+        }
+
+        @yield('js')
+    </script>
+</body>
 </html>
