@@ -90,7 +90,11 @@
                                 src="{{ secure_asset('storage/files_previews/' . $work->img) }}" alt="">
                             <p class="text-center dark:text-white">{{$work->name}}</p>
                             <p class="text-center dark:text-white">{{$work->information}}</p>
-                            <p class="text-center dark:text-white">{{$work->category->name}}</p>
+                                <form action="{{ secure_url(route('catalog')) }}">
+                                    @csrf
+                                    <input class="hidden" name="categ" value="{{ $work->category->id }}">
+                                    <input type="submit" class="text-center cursor-pointer underline dark:text-white" value="{{$work->category->name}}">
+                                </form>
                             <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
                                href="{{ secure_url(route('downloadFile', $work->id)) }}">Скачать</a>
                         </div>
@@ -126,7 +130,11 @@
                                 src="{{ secure_asset('storage/files_previews/' . $work->file->img) }}" alt="">
                             <p class="text-center dark:text-white">{{$work->file->name}}</p>
                             <p class="text-center dark:text-white">{{$work->file->information}}</p>
-                            <p class="text-center dark:text-white">{{$work->file->category->name}}</p>
+                                <form action="{{ secure_url(route('catalog')) }}">
+                                    @csrf
+                                    <input class="hidden" name="categ" value="{{ $work->category->id }}">
+                                    <input type="submit" class="text-center cursor-pointer underline dark:text-white" value="{{$work->category->name}}">
+                                </form>
                             <a class="underline dark:text-white"
                                href="{{ secure_url(route('profile', $work->file->user->login)) }}">{{ $work->file->user->login }}</a>
                             <a class="absolute left-0 bottom-0 w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
