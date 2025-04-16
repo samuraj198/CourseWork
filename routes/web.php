@@ -30,5 +30,5 @@ Route::post('register', [RegisteredUserController::class, 'store']);
 Route::get('catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('search', [CatalogController::class, 'searchClear'])->name('searchClear');
 
-Route::get('profile/{login}', [ProfileController::class, 'index'])->name('profile');
+Route::get('/{login}', [ProfileController::class, 'index'])->name('profile');
 Route::delete('delete', [FilesController::class, 'destroy'])->name('deleteFile');
