@@ -68,4 +68,16 @@
         const imgPreview = document.getElementById('CatPreview');
         imgPreview.src = categoryImg;
     }
+
+    function previewCategory(input) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const previewImg = input.closest('.relative').querySelector('img');
+            previewImg.classList.add('w-full', 'h-full', 'object-cover');
+            previewImg.src = reader.result;
+        }
+        if (input.files && input.files[0]) {
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>

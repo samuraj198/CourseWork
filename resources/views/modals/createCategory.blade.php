@@ -28,13 +28,15 @@
     </form>
 </div>
 <script>
-    function previewCategory(event){
+    function previewCategory(input){
         const readerCategory = new FileReader();
         readerCategory.onload = function() {
             const outputCategory = document.getElementById('CategoryPreview');
             outputCategory.classList.add('w-full', 'h-full', 'object-cover');
             outputCategory.src = readerCategory.result;
         }
-        readerCategory.readAsDataURL(event.target.files[0]);
+        if (input.files && input.files[0]) {
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 </script>
