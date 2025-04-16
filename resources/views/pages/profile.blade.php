@@ -21,9 +21,9 @@
         <h2 class="text-2xl">{{ $user->login }}
             <span class="text-black/50 text-sm dark:text-white/50">
             @if($user && auth()->check() && $user->id == auth()->user()->id)
-                    @if(auth()->check() && $user->hasRole('User'))
+                    @if($user->hasRole('User'))
                         (Вы)
-                    @elseif(auth()->check() && $user->hasRole('Admin'))
+                    @elseif($user->hasRole('Admin'))
                         (Вы)(Admin)
                     @endif
             @else
@@ -33,9 +33,9 @@
             @endif
         </span></h2>
         @if($user && auth()->check() && $user->id == auth()->user()->id)
-            @if(auth()->check() && $user->hasRole('User'))
+            @if($user->hasRole('User'))
                 <x-button onclick="openWorkModal()" text="Загрузить работу"/>
-            @elseif(auth()->check() && $user->hasRole('Admin'))
+            @elseif($user->hasRole('Admin'))
                 @include('modals/createCategory')
                 @include('modals/changeDelCategory')
                 <div class="btns flex items-center justify-center gap-5 max-mobileL:flex-col max-mobileL:gap-2">
@@ -48,7 +48,7 @@
     </div>
     <div class="buttons-and-cards flex flex-col items-center w-full">
         <div class="buttons flex gap-5 text-2xl mb-[35px] max-mobileL:text-xl max-mobileL:gap-2">
-            @if(auth()->check() && $user->id == auth()->user()->id)
+            @if($user && auth()->check() && $user->id == auth()->user()->id)
                 <button id="myWorksBtn" class="text-right underline dark:text-white max-mobileS:text-base">
                     Мои работы
                 </button>
@@ -68,7 +68,7 @@
                     <div class="blockForCard p-[15px]">
                         <div
                             class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                            @if(auth()->check() && $user->id === auth()->user()->id || auth()->user()->hasRole('Admin'))
+                            @if($user && auth()->check() && $user->id === auth()->user()->id || auth()->user()->hasRole('Admin'))
                                 <div
                                     class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                     <a class="cursor-pointer w-[20px] h-[20px]"
@@ -104,7 +104,7 @@
                     <div class="blockForCard p-[15px]">
                         <div
                             class="card flex flex-col items-center relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                            @if(auth()->check() && $user->id === auth()->user()->id || auth()->user()->hasRole('Admin'))
+                            @if($user && auth()->check() && $user->id === auth()->user()->id || auth()->user()->hasRole('Admin'))
                                 <div
                                     class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                     <a class="cursor-pointer w-[20px] h-[20px]"
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                 @empty
-                    @if(auth()->check() && auth()->user()->id != $user->id)
+                    @if($user && auth()->check() && auth()->user()->id != $user->id)
                         <p class="dark:text-white">Пользователь ничего не скачивал</p>
                     @else
                         <p class="dark:text-white">Вы ничего не скачивали</p>
