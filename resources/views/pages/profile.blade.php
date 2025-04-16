@@ -21,9 +21,9 @@
         <h2 class="text-2xl">{{ $user->login }}
             <span class="text-black/50 text-sm dark:text-white/50">
             @if($user && auth()->check() && $user->id == auth()->user()->id)
-                    @if($user->hasRole('User'))
+                    @if(auth()->check() && $user->hasRole('User'))
                         (Вы)
-                    @elseif($user->hasRole('Admin'))
+                    @elseif(auth()->check() && $user->hasRole('Admin'))
                         (Вы)(Admin)
                     @endif
             @else
@@ -33,9 +33,9 @@
             @endif
         </span></h2>
         @if($user && auth()->check() && $user->id == auth()->user()->id)
-            @if($user->hasRole('User'))
+            @if(auth()->check() && $user->hasRole('User'))
                 <x-button onclick="openWorkModal()" text="Загрузить работу"/>
-            @elseif($user->hasRole('Admin'))
+            @elseif(auth()->check() && $user->hasRole('Admin'))
                 @include('modals/createCategory')
                 @include('modals/changeDelCategory')
                 <div class="btns flex items-center justify-center gap-5 max-mobileL:flex-col max-mobileL:gap-2">
