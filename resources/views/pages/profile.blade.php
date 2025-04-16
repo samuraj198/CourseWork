@@ -27,7 +27,7 @@
                         (Вы)(Admin)
                     @endif
             @else
-                @if($user->hasRole('Admin'))
+                @if($user && $user->hasRole('Admin'))
                     (Admin)
                 @endif
             @endif
@@ -68,7 +68,7 @@
                     <div class="blockForCard p-[15px]">
                         <div
                             class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                            @if($user && auth()->check() && $user->id === auth()->user()->id || auth()->user()->hasRole('Admin'))
+                            @if(($user && auth()->check() && $user->id === auth()->user()->id) || auth()->user()->hasRole('Admin'))
                                 <div
                                     class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                     <a class="cursor-pointer w-[20px] h-[20px]"
@@ -104,7 +104,7 @@
                     <div class="blockForCard p-[15px]">
                         <div
                             class="card flex flex-col items-center relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                            @if($user && auth()->check() && $user->id === auth()->user()->id || auth()->user()->hasRole('Admin'))
+                            @if(($user && auth()->check() && $user->id === auth()->user()->id) || auth()->user()->hasRole('Admin'))
                                 <div
                                     class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
                                     <a class="cursor-pointer w-[20px] h-[20px]"
