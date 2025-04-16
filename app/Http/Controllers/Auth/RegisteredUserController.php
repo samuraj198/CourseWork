@@ -17,7 +17,7 @@ class RegisteredUserController extends Controller
     public function index()
     {
         if (auth()->check()) {
-            return redirect()->route('profile', auth()->user()->login);
+            return redirect()->route('profile', ['login' => auth()->user()->login]);
         }
         return redirect()->route('register');
     }
