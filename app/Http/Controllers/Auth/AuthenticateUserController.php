@@ -15,7 +15,7 @@ class AuthenticateUserController extends Controller
     public function index()
     {
         if (\auth()->check()) {
-            return redirect()->route('profile');
+            return redirect()->route('profile', auth()->user()->login);
         }
         return redirect()->route('auth');
     }
