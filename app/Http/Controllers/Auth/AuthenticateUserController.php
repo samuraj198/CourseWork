@@ -14,7 +14,10 @@ class AuthenticateUserController extends Controller
      */
     public function index()
     {
-        //
+        if (\auth()->check()) {
+            return view('pages.profile');
+        }
+        return view('pages.auth');
     }
 
     /**

@@ -20,15 +20,11 @@ Route::get('aboutUs', function () {
     return view('pages/aboutUs');
 })->name('aboutUs');
 
-Route::get('auth', function () {
-    return view('pages/auth');
-})->name('auth');
+Route::get('auth', [AuthenticateUserController::class, 'index'])->name('auth');
 Route::post('auth', [AuthenticateUserController::class, 'store']);
 Route::delete('auth', [AuthenticateUserController::class, 'destroy']);
 
-Route::get('register', function () {
-    return view('pages/register');
-})->name('register');
+Route::get('register', [RegisteredUserController::class, 'index'])->name('register');
 Route::post('register', [RegisteredUserController::class, 'store']);
 
 Route::get('catalog', [CatalogController::class, 'index'])->name('catalog');
