@@ -68,14 +68,4 @@
         const imgPreview = document.getElementById('CatPreview');
         imgPreview.src = categoryImg;
     }
-
-    function previewCategory(event){
-        const readerCategory = new FileReader();
-        readerCategory.onload = function() {
-            const outputCategory = document.getElementById('CatPreview');
-            outputCategory.classList.add('w-full', 'h-full', 'object-cover');
-            outputCategory.src = readerCategory.result;
-        }
-        readerCategory.readAsDataURL(event.target.files[0]);
-    }
 </script>
