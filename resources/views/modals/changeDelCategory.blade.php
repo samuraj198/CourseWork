@@ -18,7 +18,7 @@
             <div class="flex items-start gap-5 max-mobileL:flex-col max-mobileL:text-center">
                 <div class="shrink-0 relative w-[250px] h-[250px] bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center max-mobileM:w-[200px] max-mobileM:h-[200px]">
                     <img id="CatPreview" src="/img/icons/Camera.svg" alt="Аватар" class="object-cover cursor-pointer">
-                    <input name="img" id="file" type="file" accept="image/*" class="absolute inset-0 cursor-pointer opacity-0" onchange="previewCategory(event)">
+                    <input name="img" type="file" accept="image/*" class="absolute inset-0 cursor-pointer opacity-0" onchange="previewCategory(this)">
                 </div>
                 <div class="flex-1">
                     <label for="file" class="block text-lg font-medium text-gray-700 dark:text-white max-mobileM:text-base" id="uploadLabel">
