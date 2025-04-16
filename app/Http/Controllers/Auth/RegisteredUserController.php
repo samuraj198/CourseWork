@@ -17,9 +17,9 @@ class RegisteredUserController extends Controller
     public function index()
     {
         if (\auth()->check()) {
-            return view('pages.profile');
+            return redirect()->route('profile');
         }
-        return view('pages.register');
+        return redirect()->route('register');
     }
 
     /**
