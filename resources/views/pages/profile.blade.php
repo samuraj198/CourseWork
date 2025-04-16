@@ -20,7 +20,7 @@
 
         <h2 class="text-2xl">{{ $user->login }}
             <span class="text-black/50 text-sm dark:text-white/50">
-            @if(auth()->check() && $user->id == auth()->user()->id)
+            @if($user && auth()->check() && $user->id == auth()->user()->id)
                     @if($user->hasRole('User'))
                         (Вы)
                     @elseif($user->hasRole('Admin'))
@@ -32,7 +32,7 @@
                 @endif
             @endif
         </span></h2>
-        @if(auth()->check() && $user->id == auth()->user()->id)
+        @if($user && auth()->check() && $user->id == auth()->user()->id)
             @if($user->hasRole('User'))
                 <x-button onclick="openWorkModal()" text="Загрузить работу"/>
             @elseif($user->hasRole('Admin'))
