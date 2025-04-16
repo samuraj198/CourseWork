@@ -31,7 +31,12 @@
             </p>
         </div>
     </div>
-    <x-button href="{{ secure_url(route('register')) }}" text="Зарегистрироваться"  />
+    @if(auth()->user())
+        <x-button href="{{ secure_url(route('profile')) }}" text="Загрузить работу" />
+    @else
+        <x-button href="{{ secure_url(route('register')) }}" text="Зарегистрироваться" />
+    @endif
+
 @endsection
 <script>
     @section('js')
