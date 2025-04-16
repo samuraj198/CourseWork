@@ -32,7 +32,7 @@
         </div>
     </div>
     @if(auth()->user())
-        <x-button href="{{ secure_url(route('profile')) }}" text="Загрузить проект" />
+        <x-button href="{{ secure_url(route('profile', auth()->user()->login)) }}" text="Загрузить проект" />
     @else
         <x-button href="{{ secure_url(route('register')) }}" text="Зарегистрироваться" />
     @endif
