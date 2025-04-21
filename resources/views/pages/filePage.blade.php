@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex flex-col gap-5 items-center">
         <div class="nameAndImg flex gap-5 justify-center">
-            <img class="w-1/4" src="{{ asset('storage/files_previews/' . $file->img) }}" alt="{{ $file->name }}">
+            <img width="400px" src="{{ asset('storage/files_previews/' . $file->img) }}" alt="{{ $file->name }}">
             <div class="text relative">
                 <h2 class="text-2xl flex items-end gap-1 font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">
                     {{ $file->name }}
