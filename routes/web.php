@@ -20,6 +20,8 @@ Route::get('aboutUs', function () {
     return view('pages/aboutUs');
 })->name('aboutUs');
 
+Route::get('file/{id}', [FilesController::class, 'show'])->name('filePage');
+
 Route::get('auth', [AuthenticateUserController::class, 'index'])->name('auth');
 Route::post('auth', [AuthenticateUserController::class, 'store']);
 Route::delete('auth', [AuthenticateUserController::class, 'destroy']);

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class FilesController extends Controller
 {
@@ -119,9 +120,44 @@ class FilesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(File $file)
+    public function show($id)
     {
-        //
+        $file = File::findOrFail($id);
+        $error = null;
+        $modelPath = null;
+
+        $filePath = storage_path('app/public/files/' . $file->file);
+        $extractPath = storage_path('app/public/extracted/' . $file->id);
+
+        if (!file_exists($extractPath)) {
+            mkdir($extractPath, 0755, true);
+        }
+
+        $zip = new ZipArchive;
+        if ($zip->open($filePath) === TRUE) {
+            $zip->extractTo($extractPath);
+            $zip->close();
+
+            foreach (scandir($extractPath) as $fileItem) {
+                if (preg_match('/\.(glb|gltf)$/i', $fileItem)) {
+                    $modelPath = asset('storage/extracted/' . $file->id . '/' . $fileItem);
+                    break;
+                }
+            }
+
+            if (!$modelPath) {
+                $error = '3D-модель не найдена в архиве';
+            }
+        } else {
+            $error = 'Не удалось загрузить предпросмотр.
+            Возможно, загружен не zip-архив или в архиве нет поддерживаемого формата файла.';
+        }
+
+        return view('pages.filePage', [
+            'file' => $file,
+            'modelPath' => $modelPath,
+            'error' => $error
+        ]);
     }
 
     /**
