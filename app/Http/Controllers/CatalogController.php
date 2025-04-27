@@ -17,7 +17,7 @@ class CatalogController extends Controller
         $filename = $request->input('filename', '');
         $categ = $request->input('categ', '');
 
-        $files = File::when(!empty($filename) || !empty($categ), function ($query) use ($filename, $categ) {
+        $files = File::where('status', 'Одобрено')->when(!empty($filename) || !empty($categ), function ($query) use ($filename, $categ) {
             if (!empty($filename)) {
                 $query->where('name', 'like', "%{$filename}%");
             }

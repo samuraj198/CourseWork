@@ -11,7 +11,7 @@
             max-mobileL:gap-2">
                 <div class="shrink-0 relative w-[250px] h-[250px] bg-gray-300 rounded-lg overflow-hidden
                 flex items-center justify-center border-black border-[1px] dark:border-white max-mobileL:w-[200px] max-mobileL:h-[200px]">
-                    <img id="filePreview" src="/img/icons/Camera.svg" alt="Аватар" class="object-cover cursor-pointer">
+                    <img id="filePreview" src="{{ asset('/img/icons/Camera.svg') }}" alt="Аватар" class="object-cover cursor-pointer">
                     <input name="img" id="file" type="file" accept="image/*" class="absolute inset-0 cursor-pointer opacity-0" onchange="previewFile(event)">
                 </div>
                 <div class="flex-1">

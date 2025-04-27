@@ -32,5 +32,8 @@ Route::post('register', [RegisteredUserController::class, 'store']);
 Route::get('catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('search', [CatalogController::class, 'searchClear'])->name('searchClear');
 
-Route::get('/{login}', [ProfileController::class, 'index'])->name('profile');
+Route::get('users/{login}', [ProfileController::class, 'index'])->name('profile');
 Route::delete('delete', [FilesController::class, 'destroy'])->name('deleteFile');
+
+Route::get('adminPanel', [ProfileController::class, 'adminPanel'])->name('adminPanel');
+Route::post('changeStatus', [FilesController::class, 'changeStatus'])->name('changeStatus');

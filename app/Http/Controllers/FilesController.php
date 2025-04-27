@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\File;
 use App\Models\History;
 use App\Models\User;
@@ -33,16 +34,33 @@ class FilesController extends Controller
         }
 
         if (auth()->check()) {
-            if (!empty($file)) {
+            if (!empty($file) && $fileRecord->status == 'Одобрено') {
                 $history = History::firstOrCreate([
                     'user_id' => auth()->user()->id,
                     'file_id' => $id,
                 ]);
+                $fileRecord->downloadCount += 1;
+                $fileRecord->save();
             }
             return response()->download($filePath, $fileRecord->file);
         } else {
             return back()->withErrors('Перед скачиванием необходимо зайти в аккаунт');
         }
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $file = File::findOrFail($request->id);
+        $file->status = $request->status;
+        $file->save();
+
+        if ($request->status == 'Одобрено') {
+            $category = Category::findOrFail($file->category_id);
+            $category->count += 1;
+            $category->save();
+        }
+
+        return redirect()->back()->with('success', 'Вы успешно изменили статус проекта');
     }
 
     /**
@@ -182,6 +200,7 @@ class FilesController extends Controller
     public function destroy(Request $request)
     {
         $work = File::findOrFail($request->input('id'));
+        $category = Category::findOrFail($work->category_id);
 
         if ($work->img) {
             Storage::disk('public')->delete('files_previews/'.$work->img);
@@ -189,6 +208,8 @@ class FilesController extends Controller
         if ($work->file) {
             Storage::disk('public')->delete('files/'.$work->file);
         }
+        $category->count -= 1;
+        $category->save();
         $work->delete();
         return back()->with('success', 'Файл успешно удален');
     }

@@ -13,8 +13,8 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('created_at', 'desc')->take(6)->get();
-        $works = File::orderBy('created_at', 'desc')->take(6)->get();
+        $categories = Category::orderBy('count', 'desc')->take(6)->get();
+        $works = File::where('status', 'Одобрено')->orderBy('created_at', 'desc')->take(6)->get();
         return view('index', compact('categories', 'works'));
     }
 

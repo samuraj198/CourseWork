@@ -17,10 +17,25 @@ class ProfileController extends Controller
     {
         $user = User::where('login', $login)->firstOrFail();
         $categories = Category::all();
-        $works = File::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(12);
+        $works = File::where('user_id', $user->id)->where('status', 'Одобрено')->orderBy('created_at', 'desc')->paginate(12);
         $history = History::where('user_id', $user->id)->get();
+        $count = File::where('user_id', $user->id)->where('status', 'Проверяется')->count();
 
-        return view('pages/profile', compact('user', 'categories', 'works', 'history'));
+        return view('pages/profile', compact('user', 'categories', 'works', 'history', 'count'));
+    }
+
+    public function adminPanel()
+    {
+        $categories = Category::all();
+        $files = File::query();
+
+        $status = request('status');
+        if ($status) {
+            $files->where('status', $status);
+        }
+        $files = $files->orderBy('created_at', 'desc')->paginate(12);
+
+        return view('pages/adminPanel', compact('categories', 'files'));
     }
 
     /**

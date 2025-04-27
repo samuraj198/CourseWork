@@ -36,12 +36,9 @@
             @if($user->hasRole('User'))
                 <x-button onclick="openWorkModal()" text="Загрузить работу"/>
             @elseif($user->hasRole('Admin'))
-                @include('modals/createCategory')
-                @include('modals/changeDelCategory')
                 <div class="btns flex items-center justify-center gap-5 max-mobileL:flex-col max-mobileL:gap-2">
                     <x-button onclick="openWorkModal()" text="Загрузить работу"/>
-                    <x-button onclick="openCategoryModal()" text="Создать категорию"/>
-                    <x-button onclick="openChangeCategoryModal()" text="Изменить категории"/>
+                    <x-button href="{{ route('adminPanel') }}" text="Панель администратора"/>
                 </div>
             @endif
         @endif
@@ -74,14 +71,14 @@
                                     <a class="cursor-pointer w-[20px] h-[20px]"
                                        onclick="changeWorkModal({{ $work->id }}, '{{ addslashes($work->img) }}', '{{ addslashes($work->name) }}', '{{ $work->category_id }}', '{{ addslashes($work->information) }}', '{{ addslashes($work->file) }}')"><img
                                             class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
-                                            src="img/icons/settings.svg" alt=""></a>
+                                            src="{{ asset('img/icons/settings.svg') }}" alt=""></a>
                                     <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
                                         @csrf
                                         @method('DELETE')
                                         <input class="hidden" name="id" type="text" value="{{ $work->id }}">
                                         <button type="submit"><img
                                                 class="opacity-80 w-[20px] hover:opacity-100 transition-all duration-300"
-                                                src="img/icons/trash.svg" alt=""></button>
+                                                src="{{ asset('img/icons/trash.svg') }}" alt=""></button>
                                     </form>
                                 </div>
                             @endif
@@ -106,7 +103,12 @@
                         </div>
                     </div>
                 @empty
-                    <p class="dark:text-white">Пока нет загруженных работ</p>
+                    @if (\Illuminate\Support\Facades\Auth::check() && $user->login == auth()->user()->login ||
+(\Illuminate\Support\Facades\Auth::check() && auth()->user()->role == 'Admin'))
+                        <p class="dark:text-white">Пока нет загруженных работ (На проверке: {{ $count }})</p>
+                    @else
+                        <p class="dark:text-white">Пока нет загруженных работ</p>
+                    @endif
                 @endforelse
             </div>
             <div id="my-history" class="hidden flex flex-wrap max-w-[1680px] justify-center">
@@ -186,62 +188,5 @@
                 myWorksBtn.style.textDecoration = 'none';
             });
         });
-
-        function openWorkModal() {
-            document.getElementById('modalWork').classList.remove('hidden');
-
-            document.body.classList.add('no-scroll');
-
-            //Очистка полей
-            //Заполнение полей
-            document.getElementById('name').value = '';
-            document.getElementById('information').value = '';
-            document.getElementById('category_id').value = 0;
-            document.getElementById('filePreview').src = '/img/icons/Camera.svg';
-            document.getElementById('filePreview').classList.remove('h-full');
-
-            document.getElementById('upText').textContent = 'Загрузите фотографию модели';
-            document.getElementById('fileBlock').classList.remove('hidden');
-            document.getElementById('formName').textContent = 'ОПУБЛИКОВАТЬ РАБОТУ';
-        }
-
-        function changeWorkModal(id, img, name, category_id, information, file) {
-            document.getElementById('modalWork').classList.remove('hidden');
-
-            //Заполнение полей
-            document.getElementById('name').value = name;
-            document.getElementById('information').value = information;
-            document.getElementById('category_id').value = category_id;
-            document.getElementById('filePreview').src = 'storage/files_previews/' + img;
-            document.getElementById('filePreview').classList.add('h-full');
-            document.getElementById('changeId').value = id;
-
-            //Изменение формы под модалку изменения файла
-            document.getElementById('upText').textContent = 'Выберите новое фото';
-            document.getElementById('fileBlock').classList.add('hidden');
-            document.getElementById('formName').textContent = 'ИЗМЕНИТЬ РАБОТУ';
-        }
-
-        function closeWorkModal() {
-            document.getElementById('modalWork').classList.add('hidden');
-            document.body.classList.remove('no-scroll');
-        }
-
-        function openCategoryModal() {
-            document.getElementById('modalCategory').classList.remove('hidden');
-            document.body.classList.add('no-scroll');
-        }
-
-        function closeCategoryModal() {
-            document.getElementById('modalCategory').classList.add('hidden');
-            document.body.classList.remove('no-scroll');
-        }
-
-        function openChangeCategoryModal() {
-            document.getElementById('modalChangeCategory').classList.remove('hidden');
-        }
-        function closeChangeCategoryModal() {
-            document.getElementById('modalChangeCategory').classList.add('hidden');
-        }
     </script>
 @endsection

@@ -63,7 +63,7 @@
         @if (isset($categories))
         @foreach($categories as $category)
             #card-{{$category->id}} {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)) ,url("storage/categories/{{$category->img}}");
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("storage/categories/{{$category->img}}");
             background-size: cover;
         }
         @endforeach
@@ -260,6 +260,46 @@
             setTimeout(() => {
                 document.getElementById('burgerMenu').classList.add('hidden');
             }, 700);
+        }
+
+        function openWorkModal() {
+            document.getElementById('modalWork').classList.remove('hidden');
+
+            document.body.classList.add('no-scroll');
+
+            //Очистка полей
+            //Заполнение полей
+            document.getElementById('name').value = '';
+            document.getElementById('information').value = '';
+            document.getElementById('category_id').value = 0;
+            document.getElementById('filePreview').src = '/img/icons/Camera.svg';
+            document.getElementById('filePreview').classList.remove('h-full');
+
+            document.getElementById('upText').textContent = 'Загрузите фотографию модели';
+            document.getElementById('fileBlock').classList.remove('hidden');
+            document.getElementById('formName').textContent = 'ОПУБЛИКОВАТЬ РАБОТУ';
+        }
+
+        function changeWorkModal(id, img, name, category_id, information, file) {
+            document.getElementById('modalWork').classList.remove('hidden');
+
+            //Заполнение полей
+            document.getElementById('name').value = name;
+            document.getElementById('information').value = information;
+            document.getElementById('category_id').value = category_id;
+            document.getElementById('filePreview').src = '/storage/files_previews/' + img;
+            document.getElementById('filePreview').classList.add('h-full');
+            document.getElementById('changeId').value = id;
+
+            //Изменение формы под модалку изменения файла
+            document.getElementById('upText').textContent = 'Выберите новое фото';
+            document.getElementById('fileBlock').classList.add('hidden');
+            document.getElementById('formName').textContent = 'ИЗМЕНИТЬ РАБОТУ';
+        }
+
+        function closeWorkModal() {
+            document.getElementById('modalWork').classList.add('hidden');
+            document.body.classList.remove('no-scroll');
         }
 
         @yield('js')
