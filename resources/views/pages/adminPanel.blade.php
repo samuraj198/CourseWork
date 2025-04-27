@@ -55,7 +55,7 @@
                         class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
                         src="{{ asset('storage/files_previews/' . $work->img) }}" alt="">
                     <p class="text-center dark:text-white">{{$work->name}}</p>
-                    <p class="text-center dark:text-white">{{$work->information}}</p>
+                    <p class="text-center dark:text-white">{{ Str::limit($work->information, 15) }}</p>
                     <form class="z-10" action="{{ secure_url(route('catalog')) }}">
                         @csrf
                         <input class="hidden" name="categ" value="{{ $work->category->id }}">
@@ -82,7 +82,7 @@
                 </div>
             </div>
         @empty
-            <p class="dark:text-white py-5">Пока нет работ на проверке</p>
+            <p class="dark:text-white py-10">Нет таких работ</p>
         @endforelse
     </div>
     <div class="pagination mt-[25px]">
