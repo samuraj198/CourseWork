@@ -5,17 +5,17 @@
     @include('modals/createCategory')
     @include('modals/changeDelCategory')
     @include('modals/changeStatus')
-    <h2 class="text-2xl font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">
+    <h2 class="text-2xl font-bold mb-5 dark:text-white max-mobileL:text-xl">
         Панель администратора
     </h2>
     <h2 class="text-xl font-bold my-[15px] dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">
         Взаимодействие с категориями
     </h2>
-    <div class="categories flex gap-5 mb-5">
+    <div class="categories flex gap-5 mb-5 max-mobileL:flex-col">
         <x-button onclick="openCategoryModal()" text="Создать категорию"/>
         <x-button onclick="openChangeCategoryModal()" text="Изменить категории"/>
     </div>
-   <div class="flex gap-5 my-[15px] items-center">
+   <div class="flex gap-5 my-[15px] items-center max-mobileL:flex-col">
        <h2 class="text-xl font-bold dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">
            Взаимодействие с проектами
        </h2>
