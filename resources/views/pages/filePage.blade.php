@@ -24,7 +24,7 @@
         @if($error)
             <p class="text-red-500">{{ $error }}</p>
         @else
-            <model-viewer class="w-full h-[500px]"
+            <model-viewer style="height: 500px; !important;" class="w-full"
                           alt="3D модель {{ $file->name }}"
                           src="{{ $modelPath }}"
                           camera-orbit="0deg 75deg 2m"
