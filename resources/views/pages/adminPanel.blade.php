@@ -11,7 +11,7 @@
     <h2 class="text-xl font-bold my-[15px] dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">
         Взаимодействие с категориями
     </h2>
-    <div class="categories flex gap-5 mb-5 max-mobileL:flex-col">
+    <div class="categories flex gap-5 mb-5 mt-5 max-mobileL:flex-col">
         <x-button onclick="openCategoryModal()" text="Создать категорию"/>
         <x-button onclick="openChangeCategoryModal()" text="Изменить категории"/>
     </div>
