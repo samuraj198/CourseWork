@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Drivers\Gd;
-use Intervention\Image\ImageManager;
 
 class RegisteredUserController extends Controller
 {
@@ -48,12 +46,9 @@ class RegisteredUserController extends Controller
 
         if ($request->hasFile('ava')) {
             $ava = $request->file('ava');
-            $photoName = $request->input('login') . '_' . now()->format('YmdHis') . '.' . 'webp';
-            $manager = new ImageManager(new Gd\Driver());
-            $image = $manager->make($ava);
-            $webp = $image->encode('webp', 80);
+            $photoName = $request->input('login') . '_' . now()->format('YmdHis') . '.' . $ava->getClientOriginalExtension();
 
-            Storage::disk('public')->put('avatars/' . $photoName, $webp);
+            $ava->storeAs('avatars', $photoName, 'public');
             $userData['ava'] = $photoName;
         } else {
             $userData['ava'] = null;
