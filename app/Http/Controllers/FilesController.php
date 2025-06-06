@@ -131,7 +131,7 @@ class FilesController extends Controller
                 'file' => $fileName,
             ]);
 
-            return back()->with('success', 'Файл успешно опубликован');
+            return back()->with('success', 'Файл отправлен на проверку');
         }
     }
 
