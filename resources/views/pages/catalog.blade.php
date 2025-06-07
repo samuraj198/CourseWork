@@ -67,7 +67,7 @@
                     <img class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
                     src="{{ asset('storage/files_previews/' . $file->img) }}" alt="">
                     <p class="text-center dark:text-white">{{$file->name}}</p>
-                    <p class="text-center dark:text-white">{{ Str::limit($work->information, 15) }}</p>
+                    <p class="text-center dark:text-white">{{ Str::limit($file->information, 15) }}</p>
                     <p class="text-center dark:text-white">{{$file->category->name}}</p>
                     <a class="underline dark:text-white" href="{{ secure_url(route('profile', $file->user->login)) }}">{{ $file->user->login }}</a>
                     <div class="absolute left-0 bottom-0 w-full flex">
