@@ -108,7 +108,7 @@ class FilesController extends Controller
                 }
             }
             $oldFile->save();
-            return back()->with('success', 'Вы успешно изменили файл');
+            return back()->with('success', 'Изменения внесены. Ваш файл отправлен на проверку');
         } else {
             $imgName = null;
 
