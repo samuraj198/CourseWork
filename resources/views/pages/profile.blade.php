@@ -60,6 +60,7 @@
             </button>
         </div>
         <div class="cards flex flex-col items-center w-full">
+            <p class="dark:text-white">Ваших работ на проверке: {{ $count }}</p>
             <div id="my-works" class="flex max-w-[1680px] flex-wrap w-full justify-center">
                 @forelse($works as $work)
                     <div class="blockForCard p-[15px]">
@@ -85,8 +86,8 @@
                             <img
                                 class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
                                 src="{{ asset('storage/files_previews/' . $work->img) }}" alt="">
-                            <p class="text-center dark:text-white">{{$work->name}}</p>
-                            <p class="text-center dark:text-white">{{$work->information}}</p>
+                            <p class="text-center dark:text-white">{{ $work->name }}</p>
+                            <p class="text-center dark:text-white">{{ Str::limit($work->information, 15) }}</p>
                                 <form action="{{ secure_url(route('catalog')) }}">
                                     @csrf
                                     <input class="hidden" name="categ" value="{{ $work->category->id }}">
@@ -137,7 +138,7 @@
                                 class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
                                 src="{{ asset('storage/files_previews/' . $work->file->img) }}" alt="">
                             <p class="text-center dark:text-white">{{$work->file->name}}</p>
-                            <p class="text-center dark:text-white">{{$work->file->information}}</p>
+                            <p class="text-center dark:text-white">{{ Str::limit($work->information, 15) }}</p>
                                 <form action="{{ secure_url(route('catalog')) }}">
                                     @csrf
                                     <input class="hidden" name="categ" value="{{ $work->file->category->id }}">
