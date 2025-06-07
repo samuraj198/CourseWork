@@ -209,6 +209,7 @@ class FilesController extends Controller
         if ($work->file) {
             Storage::disk('public')->delete('files/'.$work->file);
         }
+        Storage::disk('public')->delete('extracted/' . $work->id);
         $category->count -= 1;
         $category->save();
         $work->delete();
