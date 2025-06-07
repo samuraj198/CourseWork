@@ -96,6 +96,7 @@ class FilesController extends Controller
             $oldFile->name = $request->input('name');
             $oldFile->information = $request->input('information');
             $oldFile->category_id = $request->input('category_id');
+            $oldFile->status = 'Проверяется';
 
             if ($request->hasFile('img')) {
                 Storage::disk('public')->delete('files_previews/'.$oldFile->img);
