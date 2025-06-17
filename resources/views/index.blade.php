@@ -9,7 +9,7 @@
         </form>
     </div>
     <div class="categories-block flex flex-col items-center mb-16">
-        <h2 class="text-2xl font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">ПОПУЛЯРНЫЕ КАТЕГОРИИ</h2>
+        <h2 class="text-2xl text-center font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">ПОПУЛЯРНЫЕ КАТЕГОРИИ</h2>
         <div class="blocks w-full max-w-[1600px] min-h-[200px] flex flex-wrap justify-center gap-5">
             @forelse($categories as $category)
                 <div id="card-{{$category->id}}" class="block rounded-lg border-black border-solid border-[1px] w-[250px]
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="categories-block flex flex-col items-center">
-        <h2 class="text-2xl font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">ПОСЛЕДНИЕ ДОБАВЛЕННЫЕ МОДЕЛИ</h2>
+        <h2 class="text-2xl text-center font-bold mb-5 dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">ПОСЛЕДНИЕ ДОБАВЛЕННЫЕ МОДЕЛИ</h2>
         <div class="blocks flex flex-wrap justify-center gap-5 max-w-[1600px] mb-10">
             @forelse($works as $work)
                 <div class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg flex flex-col items-center dark:border-[1px] dark:border-white">
