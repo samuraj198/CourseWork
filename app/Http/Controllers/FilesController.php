@@ -52,11 +52,16 @@ class FilesController extends Controller
     {
         $file = File::findOrFail($request->id);
         $file->status = $request->status;
+        $file->created_at = date('Y-m-d H:i:s');
         $file->save();
 
         if ($request->status == 'Одобрено') {
             $category = Category::findOrFail($file->category_id);
             $category->count += 1;
+            $category->save();
+        } elseif ($request->status == 'Отклонено') {
+            $category = Category::findOrFail($file->category_id);
+            $category->count -= 1;
             $category->save();
         }
 
