@@ -7,6 +7,7 @@ use App\Models\File;
 use App\Models\History;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {

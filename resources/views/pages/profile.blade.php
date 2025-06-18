@@ -60,7 +60,9 @@
             </button>
         </div>
         <div class="cards flex flex-col items-center w-full">
-            <p class="dark:text-white">Ваших работ на проверке: {{ $count }}</p>
+            @if ($count !== 0)
+                <p class="dark:text-white">Ваших работ на проверке: {{ $count }}</p>
+            @endif
             <div id="my-works" class="flex max-w-[1680px] flex-wrap w-full justify-center">
                 @forelse($works as $work)
                     <div class="blockForCard p-[15px]">
