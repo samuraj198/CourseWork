@@ -63,33 +63,34 @@
             @if ($count !== 0)
                 <p class="dark:text-white">Ваших работ на проверке: {{ $count }}</p>
             @endif
-            <div id="my-works" class="flex max-w-[1680px] flex-wrap w-full justify-center">
-                @forelse($works as $work)
-                    <div class="blockForCard p-[15px]">
-                        <div
-                            class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                            @if(($user && auth()->check() && $user->id === auth()->user()->id) || (auth()->check() && auth()->user()->hasRole('Admin')))
-                                <div
-                                    class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
-                                    <a class="cursor-pointer w-[20px] h-[20px]"
-                                       onclick="changeWorkModal({{ $work->id }}, '{{ addslashes($work->img) }}', '{{ addslashes($work->name) }}', '{{ $work->category_id }}', '{{ addslashes($work->information) }}', '{{ addslashes($work->file) }}')"><img
-                                            class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
-                                            src="{{ asset('img/icons/settings.svg') }}" alt=""></a>
-                                    <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input class="hidden" name="id" type="text" value="{{ $work->id }}">
-                                        <button type="submit"><img
-                                                class="opacity-80 w-[20px] hover:opacity-100 transition-all duration-300"
-                                                src="{{ asset('img/icons/trash.svg') }}" alt=""></button>
-                                    </form>
-                                </div>
-                            @endif
-                            <img
-                                class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
-                                src="{{ asset('storage/files_previews/' . $work->img) }}" alt="">
-                            <p class="text-center dark:text-white">{{ $work->name }}</p>
-                            <p class="text-center dark:text-white">{{ Str::limit($work->information, 15) }}</p>
+            <div class="worksAndPaginate">
+                <div id="my-works" class="flex max-w-[1680px] flex-wrap w-full justify-center">
+                    @forelse($works as $work)
+                        <div class="blockForCard p-[15px]">
+                            <div
+                                class="card relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
+                                @if(($user && auth()->check() && $user->id === auth()->user()->id) || (auth()->check() && auth()->user()->hasRole('Admin')))
+                                    <div
+                                        class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
+                                        <a class="cursor-pointer w-[20px] h-[20px]"
+                                           onclick="changeWorkModal({{ $work->id }}, '{{ addslashes($work->img) }}', '{{ addslashes($work->name) }}', '{{ $work->category_id }}', '{{ addslashes($work->information) }}', '{{ addslashes($work->file) }}')"><img
+                                                class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
+                                                src="{{ asset('img/icons/settings.svg') }}" alt=""></a>
+                                        <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input class="hidden" name="id" type="text" value="{{ $work->id }}">
+                                            <button type="submit"><img
+                                                    class="opacity-80 w-[20px] hover:opacity-100 transition-all duration-300"
+                                                    src="{{ asset('img/icons/trash.svg') }}" alt=""></button>
+                                        </form>
+                                    </div>
+                                @endif
+                                <img
+                                    class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
+                                    src="{{ asset('storage/files_previews/' . $work->img) }}" alt="">
+                                <p class="text-center dark:text-white">{{ $work->name }}</p>
+                                <p class="text-center dark:text-white">{{ Str::limit($work->information, 15) }}</p>
                                 <form action="{{ secure_url(route('catalog')) }}">
                                     @csrf
                                     <input class="hidden" name="categ" value="{{ $work->category->id }}">
@@ -103,69 +104,75 @@
                                         Скачать
                                     </a>
                                 </div>
+                            </div>
                         </div>
-                    </div>
-                @empty
-                    @if (\Illuminate\Support\Facades\Auth::check() && $user->login == auth()->user()->login ||
-(\Illuminate\Support\Facades\Auth::check() && auth()->user()->role == 'Admin'))
-                        <p class="dark:text-white">Пока нет загруженных работ (На проверке: {{ $count }})</p>
-                    @else
-                        <p class="dark:text-white">Пока нет загруженных работ</p>
-                    @endif
-                @endforelse
+                    @empty
+                        @if (\Illuminate\Support\Facades\Auth::check() && $user->login == auth()->user()->login ||
+    (\Illuminate\Support\Facades\Auth::check() && auth()->user()->role == 'Admin'))
+                            <p class="dark:text-white">Пока нет загруженных работ (На проверке: {{ $count }})</p>
+                        @else
+                            <p class="dark:text-white">Пока нет загруженных работ</p>
+                        @endif
+                    @endforelse
+                </div>
+                <div class="pagination mt-[25px]">
+                    {{ $works->links('pagination::bootstrap-4') }}
+                </div>
             </div>
-            <div id="my-history" class="hidden flex flex-wrap max-w-[1680px] justify-center">
-                @forelse($history as $work)
-                    <div class="blockForCard p-[15px]">
-                        <div
-                            class="card flex flex-col items-center relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
-                            @if(($user && auth()->check() && $user->id === auth()->user()->id) || (auth()->check() && auth()->user()->hasRole('Admin')))
+                <div class="historyAndPaginate">
+                    <div id="my-history" class="hidden flex flex-wrap max-w-[1680px] justify-center">
+                        @forelse($history as $work)
+                            <div class="blockForCard p-[15px]">
                                 <div
-                                    class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
-                                    <a class="cursor-pointer w-[20px] h-[20px]"
-                                       onclick="changeWorkModal({{ $work->file->id }}, '{{ addslashes($work->file->img) }}', '{{ addslashes($work->file->name) }}', '{{ $work->file->category_id }}', '{{ addslashes($work->file->information) }}', '{{ addslashes($work->file->file) }}')"><img
-                                            class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
-                                            src="img/icons/settings.svg" alt=""></a>
-                                    <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
+                                    class="card flex flex-col items-center relative w-[250px] h-[375px] border-solid border-black border-[1px] rounded-lg dark:border-white">
+                                    @if(($user && auth()->check() && $user->id === auth()->user()->id) || (auth()->check() && auth()->user()->hasRole('Admin')))
+                                        <div
+                                            class="buttons flex justify-between pt-2 px-2 absolute w-full h-full opacity-0 hover:opacity-100 transition-all duration-300">
+                                            <a class="cursor-pointer w-[20px] h-[20px]"
+                                               onclick="changeWorkModal({{ $work->file->id }}, '{{ addslashes($work->file->img) }}', '{{ addslashes($work->file->name) }}', '{{ $work->file->category_id }}', '{{ addslashes($work->file->information) }}', '{{ addslashes($work->file->file) }}')"><img
+                                                    class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
+                                                    src="img/icons/settings.svg" alt=""></a>
+                                            <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input class="hidden" name="id" type="text" value="{{ $work->id }}">
+                                                <button type="submit"><img
+                                                        class="opacity-80 w-[20px] hover:opacity-100 transition-all duration-300"
+                                                        src="img/icons/trash.svg" alt=""></button>
+                                            </form>
+                                        </div>
+                                    @endif
+                                    <img
+                                        class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
+                                        src="{{ asset('storage/files_previews/' . $work->file->img) }}" alt="">
+                                    <p class="text-center dark:text-white">{{$work->file->name}}</p>
+                                    <p class="text-center dark:text-white">{{ Str::limit($work->information, 15) }}</p>
+                                    <form action="{{ secure_url(route('catalog')) }}">
                                         @csrf
-                                        @method('DELETE')
-                                        <input class="hidden" name="id" type="text" value="{{ $work->id }}">
-                                        <button type="submit"><img
-                                                class="opacity-80 w-[20px] hover:opacity-100 transition-all duration-300"
-                                                src="img/icons/trash.svg" alt=""></button>
+                                        <input class="hidden" name="categ" value="{{ $work->file->category->id }}">
+                                        <input type="submit" class="text-center cursor-pointer underline dark:text-white w-full" value="{{$work->file->category->name}}">
                                     </form>
+                                    <a class="underline dark:text-white"
+                                       href="{{ secure_url(route('profile', $work->file->user->login)) }}">{{ $work->file->user->login }}</a>
+                                    <div class="absolute left-0 bottom-0 w-full flex">
+                                        <a class="w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black" href="{{ route('filePage', $work->file_id) }}">
+                                            Перейти
+                                        </a>
+                                    </div>
                                 </div>
+                            </div>
+                        @empty
+                            @if($user && auth()->check() && auth()->user()->id != $user->id)
+                                <p class="dark:text-white">Пользователь ничего не скачивал</p>
+                            @else
+                                <p class="dark:text-white">Вы ничего не скачивали</p>
                             @endif
-                            <img
-                                class="h-1/2 w-full rounded-t-md object-cover border-solid border-black border-b-[1px] dark:border-white"
-                                src="{{ asset('storage/files_previews/' . $work->file->img) }}" alt="">
-                            <p class="text-center dark:text-white">{{$work->file->name}}</p>
-                            <p class="text-center dark:text-white">{{ Str::limit($work->information, 15) }}</p>
-                                <form action="{{ secure_url(route('catalog')) }}">
-                                    @csrf
-                                    <input class="hidden" name="categ" value="{{ $work->file->category->id }}">
-                                    <input type="submit" class="text-center cursor-pointer underline dark:text-white w-full" value="{{$work->file->category->name}}">
-                                </form>
-                            <a class="underline dark:text-white"
-                               href="{{ secure_url(route('profile', $work->file->user->login)) }}">{{ $work->file->user->login }}</a>
-                                <div class="absolute left-0 bottom-0 w-full flex">
-                                    <a class="w-full text-center text-2xl font-bold py-[10px] border-solid border-black rounded-b-md border-t-[1px] hover:bg-black hover:text-white transition-all duration-300 dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black" href="{{ route('filePage', $work->file_id) }}">
-                                        Перейти
-                                    </a>
-                                </div>
-                        </div>
+                        @endforelse
                     </div>
-                @empty
-                    @if($user && auth()->check() && auth()->user()->id != $user->id)
-                        <p class="dark:text-white">Пользователь ничего не скачивал</p>
-                    @else
-                        <p class="dark:text-white">Вы ничего не скачивали</p>
-                    @endif
-                @endforelse
-            </div>
-        </div>
-        <div class="pagination mt-[25px]">
-            {{ $works->links('pagination::bootstrap-4') }}
+                    <div class="pagination mt-[25px]">
+                        {{ $history->links('pagination::bootstrap-4') }}
+                    </div>
+                </div>
         </div>
     </div>
     <script>

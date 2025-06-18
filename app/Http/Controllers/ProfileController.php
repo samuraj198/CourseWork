@@ -19,7 +19,7 @@ class ProfileController extends Controller
         $user = User::where('login', $login)->firstOrFail();
         $categories = Category::all();
         $works = File::where('user_id', $user->id)->where('status', 'Одобрено')->orderBy('created_at', 'desc')->paginate(12);
-        $history = History::where('user_id', $user->id)->get();
+        $history = History::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(12);
         $count = File::where('user_id', $user->id)->where('status', 'Проверяется')->count();
 
         return view('pages/profile', compact('user', 'categories', 'works', 'history', 'count'));
