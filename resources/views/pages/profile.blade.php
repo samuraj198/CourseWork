@@ -115,7 +115,7 @@
                         @endif
                     @endforelse
                 </div>
-                <div class="pagination mt-[25px]">
+                <div class="paginationW mt-[25px]">
                     {{ $works->links('pagination::bootstrap-4') }}
                 </div>
             </div>
@@ -169,7 +169,7 @@
                             @endif
                         @endforelse
                     </div>
-                    <div class="pagination mt-[25px]">
+                    <div class="paginationH hidden mt-[25px]">
                         {{ $history->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
@@ -183,10 +183,15 @@
             const myWorksSection = document.getElementById('my-works');
             const downloadHistorySection = document.getElementById('my-history');
 
+            const paginationH = document.querySelector('.paginationH');
+            const paginationW = document.querySelector('.paginationW');
+
             // Добавляем события на кнопки
             myWorksBtn.addEventListener('click', () => {
                 myWorksSection.classList.remove('hidden');
                 downloadHistorySection.classList.add('hidden');
+                paginationH.classList.add('hidden');
+                paginationW.classList.remove('hidden');
                 myWorksBtn.style.textDecoration = 'underline';
                 downloadHistoryBtn.style.textDecoration = 'none';
             });
@@ -194,6 +199,8 @@
             downloadHistoryBtn.addEventListener('click', () => {
                 downloadHistorySection.classList.remove('hidden');
                 myWorksSection.classList.add('hidden');
+                paginationW.classList.add('hidden');
+                paginationH.classList.remove('hidden');
                 downloadHistoryBtn.style.textDecoration = 'underline';
                 myWorksBtn.style.textDecoration = 'none';
             });
