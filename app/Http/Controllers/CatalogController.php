@@ -24,7 +24,7 @@ class CatalogController extends Controller
             if (!empty($categ)) {
                 $query->where('category_id', $categ);
             }
-        })->paginate(18);
+        })->orderBy('created_at', 'desc')->paginate(18);
 
         if (!empty($categ)) {
             $categ_name = Category::where('id', $categ)->value('name');
