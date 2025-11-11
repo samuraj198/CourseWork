@@ -65,7 +65,7 @@ class CategoriesController extends Controller
     {
         $data = $request->validated();
 
-        $img = $data->file('img');
+        $img = $request->file('img');
         $name = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
         $imgName = $name . '_' . now()->format('YmdHis') . '.' . $img->getClientOriginalExtension();
         $img->storeAs('categories', $imgName, 'public');
