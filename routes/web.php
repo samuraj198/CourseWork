@@ -23,8 +23,8 @@ Route::get('aboutUs', function () {
 Route::get('file/{id}', [FilesController::class, 'show'])->name('filePage');
 
 Route::get('auth', [AuthenticateUserController::class, 'index'])->name('auth');
-Route::post('auth', [AuthenticateUserController::class, 'store']);
-Route::delete('auth', [AuthenticateUserController::class, 'destroy']);
+Route::post('auth', [AuthenticateUserController::class, 'login']);
+Route::delete('auth', [AuthenticateUserController::class, 'logout']);
 
 Route::get('register', [RegisteredUserController::class, 'index'])->name('register');
 Route::post('register', [RegisteredUserController::class, 'store']);
