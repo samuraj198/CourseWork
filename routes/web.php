@@ -27,7 +27,7 @@ Route::post('auth', [AuthenticateUserController::class, 'login']);
 Route::delete('auth', [AuthenticateUserController::class, 'logout']);
 
 Route::get('register', [RegisteredUserController::class, 'index'])->name('register');
-Route::post('register', [RegisteredUserController::class, 'store']);
+Route::post('register', [RegisteredUserController::class, 'register']);
 
 Route::get('catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('search', [CatalogController::class, 'searchClear'])->name('searchClear');

@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function __construct(private CategoryService $service)
+    {}
 
     public function changeCategory(Request $request)
     {
@@ -64,41 +61,19 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-        ]);
+        $data = $request->validated();
 
-        $img = $request->file('img');
+        $img = $data->file('img');
         $name = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
         $imgName = $name . '_' . now()->format('YmdHis') . '.' . $img->getClientOriginalExtension();
-
         $img->storeAs('categories', $imgName, 'public');
+        $data['img'] = $imgName;
 
-        $category = Category::create([
-            'name' => $request['name'],
-            'img' => $imgName,
-        ]);
+        $category = $this->service->store($data);
 
         return back()->with('success', 'Категория успешно создана');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
     }
 
     /**

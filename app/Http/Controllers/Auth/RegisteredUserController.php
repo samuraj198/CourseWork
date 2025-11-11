@@ -12,7 +12,7 @@ class RegisteredUserController extends Controller
      * Display a listing of the resource.
      */
 
-    public function __construct(UserService $service)
+    public function __construct(private UserService $service)
     {}
 
     public function index()
@@ -24,7 +24,18 @@ class RegisteredUserController extends Controller
     {
         $userData = $request->validated();
 
-        $user = $this->register($userData);
+        if ($request->hasFile('ava')) {
+            $ava = $request->file('ava');
+            $photoName = $userData['login'] . '_' .
+                now()->format('YmdHis') . '.' .
+                $ava->getClientOriginalExtension();
+            $ava->storeAs('avatars', $photoName, 'public');
+            $userData['ava'] = $photoName;
+        } else {
+            $userData = null;
+        }
+
+        $user = $this->service->register($userData);
 
         return redirect()->route('profile', $user->login)
             ->with('success', 'Аккаунт успешно зарегистрирован. Вход выполнен');
