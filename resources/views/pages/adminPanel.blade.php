@@ -3,7 +3,8 @@
 @section('content')
     @include('modals/createWork')
     @include('modals/createCategory')
-    @include('modals/changeDelCategory')
+    @include('modals.delCategory')
+    @include('modals.changeCategory')
     @include('modals/changeStatus')
     <h2 class="text-2xl font-bold mb-5 dark:text-white max-mobileL:text-xl">
         Панель администратора
@@ -13,25 +14,26 @@
     </h2>
     <div class="categories flex gap-5 mb-5 mt-5 max-mobileL:flex-col">
         <x-button onclick="openCategoryModal()" text="Создать"/>
-        <x-button onclick="" text="Изменить"/>
-        <x-button onclick="" text="Удалить"/>
+        <x-button onclick="openChangeCategoryModal()" text="Изменить"/>
+        <x-button onclick="openDelCategoryModal()" text="Удалить"/>
     </div>
-   <div class="flex gap-5 my-[15px] items-center max-mobileL:flex-col">
-       <h2 class="text-xl font-bold dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">
-           Взаимодействие с проектами
-       </h2>
-       <form method="GET">
-           @csrf
-           <select class="border-black border-solid border-[1px] py-[13px]
+    <div class="flex gap-5 my-[15px] items-center max-mobileL:flex-col">
+        <h2 class="text-xl font-bold dark:text-white max-mobileL:text-xl max-mobileM:text-lg max-mobileS:text-sm">
+            Взаимодействие с проектами
+        </h2>
+        <form method="GET">
+            @csrf
+            <select class="border-black border-solid border-[1px] py-[13px]
            px-[15px] rounded-lg dark:bg-black dark:border-white dark:text-white"
-                   onchange="this.form.submit()" name="status">
-               <option value="">Все</option>
-               <option {{ request('status') == 'Проверяется' ? 'selected' : '' }} value="Проверяется">В проверке</option>
-               <option {{ request('status') == 'Одобрено' ? 'selected' : '' }} value="Одобрено">Одобрены</option>
-               <option {{ request('status') == 'Отклонено' ? 'selected' : '' }} value="Отклонено">Отклонены</option>
-           </select>
-       </form>
-   </div>
+                    onchange="this.form.submit()" name="status">
+                <option value="">Все</option>
+                <option {{ request('status') == 'Проверяется' ? 'selected' : '' }} value="Проверяется">В проверке
+                </option>
+                <option {{ request('status') == 'Одобрено' ? 'selected' : '' }} value="Одобрено">Одобрены</option>
+                <option {{ request('status') == 'Отклонено' ? 'selected' : '' }} value="Отклонено">Отклонены</option>
+            </select>
+        </form>
+    </div>
     <div class="files flex max-w-[1680px] flex-wrap w-full justify-center">
         @forelse($files as $work)
             <div class="blockForCard p-[15px]">
@@ -40,9 +42,9 @@
                     <div
                         class="buttons flex justify-between pt-2 px-2 absolute w-full  opacity-0 hover:opacity-100 transition-all duration-300">
                         <a class="cursor-pointer w-[20px] h-[20px]"
-                            onclick="changeWorkModal({{ $work->id }}, '{{ addslashes($work->img) }}', '{{ addslashes($work->name) }}', '{{ $work->category_id }}', '{{ addslashes($work->information) }}', '{{ addslashes($work->file) }}')"><img
-                            class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
-                            src="img/icons/settings.svg" alt=""></a>
+                           onclick="changeWorkModal({{ $work->id }}, '{{ addslashes($work->img) }}', '{{ addslashes($work->name) }}', '{{ $work->category_id }}', '{{ addslashes($work->information) }}', '{{ addslashes($work->file) }}')"><img
+                                class="opacity-80 h-[20px] hover:opacity-100 transition-all duration-300"
+                                src="img/icons/settings.svg" alt=""></a>
                         <form class="h-[20px] w-[20px]" method="POST" action="{{ secure_url(route('deleteFile')) }}">
                             @csrf
                             @method('DELETE')
@@ -106,6 +108,13 @@
     }
     function closeChangeCategoryModal() {
     document.getElementById('modalChangeCategory').classList.add('hidden');
+    }
+
+    function openDelCategoryModal() {
+    document.getElementById('modalDelCategory').classList.remove('hidden');
+    }
+    function closeDelCategoryModal() {
+    document.getElementById('modalDelCategory').classList.add('hidden');
     }
 
     document.querySelectorAll('.card').forEach(card => {

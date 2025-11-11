@@ -36,7 +36,7 @@
             outputCategory.src = readerCategory.result;
         }
         if (input.files && input.files[0]) {
-            reader.readAsDataURL(input.files[0]);
+            readerCategory.readAsDataURL(input.files[0]);
         }
     }
 </script>
