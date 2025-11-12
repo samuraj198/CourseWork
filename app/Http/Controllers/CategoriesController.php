@@ -46,17 +46,7 @@ class CategoriesController extends Controller
     public function update(ChangeCategoryRequest $request)
     {
         $data = $request->validated();
-        $newImgName = null;
-
-        if ($request->hasFile('img')) {
-            $img = $request->file('img');
-            $name = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
-            $imgName = $name . '_' . now()->format('YmdHis') . '.' . $img->getClientOriginalExtension();
-            $img->storeAs('categories', $imgName, 'public');
-            $newImgName = $imgName;
-        }
-
-        $category = $this->service->update($data, $newImgName);
+        $category = $this->service->update($data, $request->file('img'));
 
         return redirect()->back()->with('success', 'Вы успешно изменили категорию');
     }
@@ -66,10 +56,12 @@ class CategoriesController extends Controller
      */
     public function destroy(Request $request)
     {
-        $category = Category::findOrFail($request->category_id);
-        Storage::disk('public')->delete('categories/' . $category->img);
-        $category->delete();
+        $check = $this->service->destroy($request->category_id);
 
-        return redirect()->back()->with('success', 'Вы успешно удалили категорию');
+        if ($check) {
+            return redirect()->back()->with('success', 'Вы успешно удалили категорию');
+        }
+
+        return redirect()->back()->with('success', 'Не удалось удалить категорию');
     }
 }

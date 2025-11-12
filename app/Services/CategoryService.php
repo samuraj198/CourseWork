@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
+use mysql_xdevapi\Collection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CategoryService
 {
@@ -17,16 +19,17 @@ class CategoryService
         return $category;
     }
 
-    public function update($data, $newImgName)
+    public function update(array $data, ?UploadedFile $img = null): Category
     {
         $category = Category::findOrFail($data['category_id']);
 
-        if ($category->img && Storage::disk('public')->exists('categories/' . $category->img)) {
-            Storage::disk('public')->delete('categories/' . $category->img);
-        }
-
-        if (isset($newImgName)) {
-            $category->img = $newImgName;
+        if ($img) {
+            if ($category->img) {
+                Storage::disk('public')->delete('categories/' . $category->img);
+            }
+            $imgName = $this->generateImageName($img);
+            $img->storeAs('categories', $imgName, 'public');
+            $category->img = $imgName;
         }
         if (isset($data['name'])) {
             $category->name = $data['name'];
@@ -34,5 +37,27 @@ class CategoryService
         $category->save();
 
         return $category;
+    }
+
+    private function generateImageName(UploadedFile $img): string
+    {
+        $name = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+        return $name . '_' . now()->format('YmdHis') . '.' . $img->getClientOriginalExtension();
+    }
+
+    public function destroy(int $id): bool
+    {
+        $category = Category::findOrFail($id);
+
+        if ($category->img) {
+            Storage::disk('public')->delete('categories/' . $category->img);
+        }
+
+        return $category->delete();
+    }
+
+    public function all()
+    {
+        return Category::all();
     }
 }
