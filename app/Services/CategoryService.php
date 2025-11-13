@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
-use mysql_xdevapi\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CategoryService
@@ -59,5 +58,16 @@ class CategoryService
     public function all()
     {
         return Category::all();
+    }
+
+    public function updateCount(int $id, string $method)
+    {
+        $category = Category::findOrFail($id);
+        if ($method == 'plus') {
+            $category->count += 1;
+        } elseif ($method == 'minus') {
+            $category->count -= 1;
+        }
+        $category->save();
     }
 }

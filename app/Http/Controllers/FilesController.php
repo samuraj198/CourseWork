@@ -2,143 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\File;
-use App\Models\History;
-use App\Models\User;
+use App\Http\Requests\StoreWorkRequest;
+use App\Http\Requests\UpdateWorkRequest;
+use App\Services\WorksService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
-use ZipArchive;
 
 class FilesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function __construct(private WorksService $worksService)
+    {}
 
     public function downloadFile($id)
     {
-        $fileRecord = File::findOrFail($id);
-        $filePath = storage_path('app/public/files/'.$fileRecord->file);
-
-        if (!file_exists($filePath)) {
-            return response()->json(['message' => 'Файл не найден'], Response::HTTP_NOT_FOUND);
-        } else {
-            $file = History::where('user_id', \auth()->user()->id)->where('file_id', $id);
+        $result = $this->worksService->downloadFile($id);
+        if (isset($result['error'])) {
+            return redirect()->back()->with('error', $result['error']);
         }
-
-        if (auth()->check()) {
-            if (!empty($file) && $fileRecord->status == 'Одобрено') {
-                $history = History::firstOrCreate([
-                    'user_id' => auth()->user()->id,
-                    'file_id' => $id,
-                ]);
-                $fileRecord->downloadCount += 1;
-                $fileRecord->save();
-            }
-            return response()->download($filePath, $fileRecord->file);
-        } else {
-            return back()->withErrors('Перед скачиванием необходимо зайти в аккаунт');
-        }
+        return $result['response'];
     }
 
     public function changeStatus(Request $request)
     {
-        $file = File::findOrFail($request->id);
-        $file->status = $request->status;
-        $file->created_at = date('Y-m-d H:i:s');
-        $file->save();
-
-        if ($request->status == 'Одобрено') {
-            $category = Category::findOrFail($file->category_id);
-            $category->count += 1;
-            $category->save();
-        } elseif ($request->status == 'Отклонено') {
-            $category = Category::findOrFail($file->category_id);
-            $category->count -= 1;
-            $category->save();
-        }
+        $work = $this->worksService->changeStatus($request->id, $request->status);
 
         return redirect()->back()->with('success', 'Вы успешно изменили статус проекта');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(UpdateWorkRequest $request)
     {
-        //
-    }
+        $data = $request->validated();
+        $work = $this->worksService->store($data, $request->file('img'), $request->file('file'));
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $user = Auth::user();
-        $oldFile = File::find($request->input('changeId'));
-
-        $rules = [
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|integer',
-            'information' => 'required|string|max:300',
-            'file' => 'nullable|file|mimes:zip,rar,7z,tar,gz|max:51200',
-        ];
-
-        if (empty($oldFile)){
-            $rules['file'] = 'required|file|mimes:zip,rar,7z,tar,gz|max:51200';
-        }
-        $request->validate($rules);
-
-        if ($oldFile) {
-            $oldFile->name = $request->input('name');
-            $oldFile->information = $request->input('information');
-            $oldFile->category_id = $request->input('category_id');
-            $oldFile->status = 'Проверяется';
-
-            if ($request->hasFile('img')) {
-                Storage::disk('public')->delete('files_previews/'.$oldFile->img);
-                if($request->hasFile('img')){
-                    $img = $request->file('img');
-                    $imgName = 'preview_' . $request['name'] . '_' . $user->login . '_' . now()->format('YmdHis') . '.' . $img->getClientOriginalExtension();
-                    $oldFile->img = $imgName;
-                    $img->storeAs('files_previews', $imgName, 'public');
-                }
-            }
-            $oldFile->save();
-            return back()->with('success', 'Изменения внесены. Ваш файл отправлен на проверку');
-        } else {
-            $imgName = null;
-
-            if($request->hasFile('img')){
-                $img = $request->file('img');
-                $imgName = 'preview_' . $request['name'] . '_' . $user->login . '_' . now()->format('YmdHis') . '.' . $img->getClientOriginalExtension();
-                $img->storeAs('files_previews', $imgName, 'public');
-            }
-
-            $file = $request->file('file');
-            $fileOrigName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $fileName = 'file_' . $fileOrigName . '_' . $user->login . '_' . now()->format('YmdHis') . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('files', $fileName, 'public');
-
-            $work = File::create([
-                'img' => $imgName,
-                'name' => $request['name'],
-                'information' => $request['information'],
-                'category_id' => $request['category_id'],
-                'user_id' => $user->id,
-                'file' => $fileName,
-            ]);
-
-            return back()->with('success', 'Файл отправлен на проверку');
-        }
+        return back()->with('success', 'Файл отправлен на проверку');
     }
 
     /**
@@ -146,79 +41,29 @@ class FilesController extends Controller
      */
     public function show($id)
     {
-        $file = File::findOrFail($id);
-        $error = null;
-        $modelPath = null;
+        $result = $this->worksService->show($id);
 
-        $filePath = storage_path('app/public/files/' . $file->file);
-        $extractPath = storage_path('app/public/extracted/' . $file->id);
-
-        if (!file_exists($extractPath)) {
-            mkdir($extractPath, 0755, true);
-        }
-
-        $zip = new ZipArchive;
-        if ($zip->open($filePath) === TRUE) {
-            $zip->extractTo($extractPath);
-            $zip->close();
-
-            foreach (scandir($extractPath) as $fileItem) {
-                if (preg_match('/\.(glb|gltf)$/i', $fileItem)) {
-                    $modelPath = asset('storage/extracted/' . $file->id . '/' . $fileItem);
-                    break;
-                }
-            }
-
-            if (!$modelPath) {
-                $error = '3D-модель не найдена в архиве';
-            }
-        } else {
-            $error = 'Не удалось загрузить предпросмотр.
-            Возможно, загружен не zip-архив или в архиве нет поддерживаемого формата файла.';
-        }
-
-        return view('pages.filePage', [
-            'file' => $file,
-            'modelPath' => $modelPath,
-            'error' => $error
-        ]);
+        return view('filePage', $result);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(File $file)
+    public function update(StoreWorkRequest $request)
     {
-        //
+        $data = $request->validated();
+        $work = $this->worksService->update($data,
+                                            $request->file('img'),
+                                            $request->file('file'));
+
+        return back()->with('success', 'Изменения внесены. Ваш файл отправлен на проверку');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, File $file)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Request $request)
     {
-        $work = File::findOrFail($request->input('id'));
-        $category = Category::findOrFail($work->category_id);
+        $check = $this->worksService->destroy($request->id);
 
-        if ($work->img) {
-            Storage::disk('public')->delete('files_previews/'.$work->img);
+        if (!$check) {
+            return back()->with('error', 'Что-то пошло не так');
         }
-        if ($work->file) {
-            Storage::disk('public')->delete('files/'.$work->file);
-        }
-        Storage::disk('public')->delete('extracted/'.$work->id);
 
-        $category->count -= 1;
-        $category->save();
-        $work->delete();
         return back()->with('success', 'Файл успешно удален');
     }
 }
