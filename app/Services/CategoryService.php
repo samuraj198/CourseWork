@@ -11,8 +11,11 @@ class CategoryService
     /**
      * Create a new class instance.
      */
-    public function store($data)
+    public function store(array $data, UploadedFile $img): Category
     {
+        $imgName = $this->generateImageName($img);
+        $img->storeAs('categories', $imgName, 'public');
+        $data['img'] = $imgName;
         $category = Category::create($data);
 
         return $category;

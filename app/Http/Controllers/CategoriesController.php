@@ -14,35 +14,14 @@ class CategoriesController extends Controller
     public function __construct(private CategoryService $service)
     {}
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCategoryRequest $request)
     {
         $data = $request->validated();
-
-        $img = $request->file('img');
-        $name = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
-        $imgName = $name . '_' . now()->format('YmdHis') . '.' . $img->getClientOriginalExtension();
-        $img->storeAs('categories', $imgName, 'public');
-        $data['img'] = $imgName;
-
-        $category = $this->service->store($data);
+        $category = $this->service->store($data, $request->img);
 
         return back()->with('success', 'Категория успешно создана');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ChangeCategoryRequest $request)
     {
         $data = $request->validated();
@@ -51,9 +30,6 @@ class CategoriesController extends Controller
         return redirect()->back()->with('success', 'Вы успешно изменили категорию');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Request $request)
     {
         $check = $this->service->destroy($request->category_id);
